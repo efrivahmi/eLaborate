@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">eLaborate</string>
+    <string name="welcome">Welcome to</string>
+    <string name="welcome2">e-LABorate Application</string>
+    <string name="component1">Component 1</string>
+    <string name="component2">Component 2</string>
+    <string name="component3">Component 3</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
 </resources>

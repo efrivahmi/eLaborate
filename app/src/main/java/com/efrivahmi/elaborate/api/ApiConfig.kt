@@ -1,4 +1,4 @@
-package com.efrivahmi.elaborate.Api
+package com.efrivahmi.elaborate.api
 
 import com.efrivahmi.elaborate.BuildConfig
 import okhttp3.OkHttpClient
