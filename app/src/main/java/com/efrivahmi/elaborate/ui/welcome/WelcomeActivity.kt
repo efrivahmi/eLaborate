@@ -44,7 +44,7 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun startImageSlideshow() {
         animator = ObjectAnimator.ofFloat(binding.imageView1, "translationX", 0f, -binding.imageView1.width.toFloat())
-        animator.duration = 500
+        animator.duration = 1000
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.repeatCount = ObjectAnimator.INFINITE
         animator.repeatMode = ObjectAnimator.REVERSE
@@ -55,14 +55,33 @@ class WelcomeActivity : AppCompatActivity(), View.OnClickListener {
             if (currentImageIndex >= images.size)
                 currentImageIndex = 0
 
-            binding.imageView1.setImageResource(images[currentImageIndex])
+            when (currentImageIndex) {
+                0 -> {
+                    binding.imageView1.setImageResource(images[0])
+                    binding.imageView2.setImageResource(images[1])
+                    binding.imageView3.setImageResource(images[2])
+                }
+                1 -> {
+                    binding.imageView1.setImageResource(images[1])
+                    binding.imageView2.setImageResource(images[2])
+                    binding.imageView3.setImageResource(images[0])
+                }
+                2 -> {
+                    binding.imageView1.setImageResource(images[2])
+                    binding.imageView2.setImageResource(images[0])
+                    binding.imageView3.setImageResource(images[1])
+                }
+            }
+
             binding.imageView1.translationX = 0f
+            binding.imageView2.translationX = 0f
+            binding.imageView3.translationX = 0f
 
             animator.target = binding.imageView1
             animator.start()
 
-            binding.imageView1.postDelayed({ startImageSlideshow() }, 3000)
-        }, 3000)
+            binding.imageView1.postDelayed({ startImageSlideshow() }, 1000)
+        }, 1000)
     }
 
     override fun onDestroy() {

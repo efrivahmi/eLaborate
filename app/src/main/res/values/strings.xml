@@ -5,6 +5,6 @@
     <string name="component1">Component 1</string>
     <string name="component2">Component 2</string>
     <string name="component3">Component 3</string>
-    <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="login">Sign In</string>
+    <string name="register">Sign Up</string>
 </resources>
