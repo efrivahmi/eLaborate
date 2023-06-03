@@ -176,7 +176,7 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.efrivahmi.elaborate.ui.custom.InputPassword
+        <com.efrivahmi.elaborate.ui.custom.Password
             android:id="@+id/cpasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
 
@@ -199,7 +199,7 @@
         android:id="@+id/agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:text="@string/agree"
         app:layout_constraintStart_toEndOf="@+id/agreement"
         app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
@@ -209,7 +209,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:text="@string/term"
         android:textColor="#FCB208"
         app:layout_constraintStart_toEndOf="@id/agree"
@@ -221,7 +221,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:text="@string/and"
         app:layout_constraintStart_toEndOf="@+id/term"
         app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
@@ -231,7 +231,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:text="@string/privacy"
         android:textColor="#FCB208"
         app:layout_constraintStart_toEndOf="@id/and"
@@ -239,12 +239,12 @@
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:layout_width="353dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/button"
         android:text="@string/register"
         android:textColor="@color/black"
@@ -252,7 +252,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpasswordEditTextLayout"
-        app:layout_constraintVertical_bias="0.805"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
     <TextView
@@ -273,7 +273,6 @@
         android:id="@+id/register_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="28dp"
         android:fontFamily="@font/montserrat_medium"

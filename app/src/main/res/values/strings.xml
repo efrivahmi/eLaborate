@@ -30,4 +30,5 @@
     <string name="privacy">Privacy Policy</string>
     <string name="registerinfo">Please Register an Account to Access the e-LABorate Application</string>
     <string name="logintoo">Don\'t have an account?</string>
+    <string name="confirmPasswordEditText">Konfirmasi ulang password anda</string>
 </resources>

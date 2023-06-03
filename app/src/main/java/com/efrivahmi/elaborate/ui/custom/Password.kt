@@ -9,7 +9,6 @@ import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
@@ -17,6 +16,7 @@ import com.efrivahmi.elaborate.R
 
 class Password : AppCompatEditText, View.OnTouchListener {
     private var isPasswordValid: Boolean = false
+    private lateinit var confirmPasswordEditText: EditText
     private lateinit var keyIcon: Drawable
 
     constructor(context: Context) : super(context) {
@@ -40,19 +40,16 @@ class Password : AppCompatEditText, View.OnTouchListener {
     }
 
     private fun init() {
-        keyIcon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_lock_24) as Drawable
+        keyIcon =
+            ContextCompat.getDrawable(context, R.drawable.ic_baseline_lock_24) as Drawable
         transformationMethod = PasswordTransformationMethod.getInstance()
         onShowVisibilityIcon(keyIcon)
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length ?: 0 < 8) {
-                    setError(context.getString(R.string.password_length), null)
-                    isPasswordValid = false
-                } else {
-                    isPasswordValid = true
-                }
+                isPasswordValid = (s?.length ?: 0) >= 8
+                checkPasswordValidity()
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -65,35 +62,19 @@ class Password : AppCompatEditText, View.OnTouchListener {
         if (event?.action == MotionEvent.ACTION_UP) {
             val drawableRight = compoundDrawablesRelative[2]
             if (drawableRight != null && event.rawX >= (right - drawableRight.bounds.width())) {
-                // Handle password visibility toggle here
-                togglePasswordVisibility()
                 return true
             }
         }
-        return false
+        return super.onTouchEvent(event)
     }
 
-    private fun togglePasswordVisibility() {
-        if (transformationMethod == PasswordTransformationMethod.getInstance()) {
-            transformationMethod = null
-            keyIcon = ContextCompat.getDrawable(context, R.drawable.baseline_lock_open_24) as Drawable
-        } else {
-            transformationMethod = PasswordTransformationMethod.getInstance()
-            keyIcon = ContextCompat.getDrawable(context, R.drawable.ic_baseline_lock_24) as Drawable
-        }
-        onShowVisibilityIcon(keyIcon)
-    }
-
-    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        if (!focused) {
-            checkPasswordValidity()
-        }
+    fun setConfirmPasswordEditText(editText: EditText) {
+        confirmPasswordEditText = editText
     }
 
     private fun checkPasswordValidity() {
         val password = text?.toString()?.trim()
-        val confirmPassword = (parent as ViewGroup).findViewById<EditText>(R.id.confirmPasswordEditText).text?.toString()?.trim()
+        val confirmPassword = confirmPasswordEditText.text?.toString()?.trim()
         if (password.isNullOrEmpty() || confirmPassword.isNullOrEmpty()) {
             isPasswordValid = false
             error = resources.getString(R.string.input_password)
@@ -102,6 +83,18 @@ class Password : AppCompatEditText, View.OnTouchListener {
             error = resources.getString(R.string.password_not_match)
         } else {
             isPasswordValid = true
+        }
+    }
+
+    fun isPasswordValid(): Boolean {
+        checkPasswordValidity()
+        return isPasswordValid
+    }
+
+    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect)
+        if (!focused) {
+            checkPasswordValidity()
         }
     }
 }
