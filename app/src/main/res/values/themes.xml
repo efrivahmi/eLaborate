@@ -3,8 +3,14 @@
     <style name="Base.Theme.ELaborate" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#FCB208</item>
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryVariant">#FCB208</item>
+        <item name="colorOnPrimary">#000000</item>
     </style>
-
     <style name="Theme.ELaborate" parent="Base.Theme.ELaborate" />
+    <style name="progressBar" parent="@style/Theme.AppCompat">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="Input"> name="inputText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
 </resources>
