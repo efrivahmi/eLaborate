@@ -1,4 +1,4 @@
-package com.efrivahmi.elaborate.model
+package com.efrivahmi.elaborate.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

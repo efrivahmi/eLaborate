@@ -1,8 +1,8 @@
-package com.efrivahmi.elaborate.factory
+package com.efrivahmi.elaborate.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.efrivahmi.elaborate.model.UserPreference
+import com.efrivahmi.elaborate.data.model.UserPreference
 import com.efrivahmi.elaborate.ui.login.LoginViewModel
 import com.efrivahmi.elaborate.ui.main.MainActivity
 import com.efrivahmi.elaborate.ui.main.MainViewModel

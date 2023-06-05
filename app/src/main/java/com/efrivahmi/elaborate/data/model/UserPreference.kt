@@ -1,4 +1,4 @@
-package com.efrivahmi.elaborate.model
+package com.efrivahmi.elaborate.data.model
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
