@@ -1,25 +1,35 @@
 package com.efrivahmi.elaborate.data.api
 
+import com.efrivahmi.elaborate.data.response.SignIn
+import com.efrivahmi.elaborate.data.response.SignOut
+import com.efrivahmi.elaborate.data.response.SignUp
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
+    @FormUrlEncoded
     @POST("/signup")
     fun signUp(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Field("username") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("confirmPassword") confirmPassword: String
+    ): Call<SignUp>
 
+    @FormUrlEncoded
     @POST("/signin")
     fun signIn(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Call<SignIn>
 
+    @FormUrlEncoded
     @POST("/signout")
     fun signOut(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Header("Authorization") token: String
+    ): Call<SignOut>
 
     @POST("/forgot-password")
     fun forgotPassword(

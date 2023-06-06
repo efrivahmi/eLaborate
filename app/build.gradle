@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
-    id 'kotlin-kapt'
 }
 
 android {
@@ -10,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-            applicationId "com.efrivahmi.elaborate"
+        applicationId "com.efrivahmi.elaborate"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -33,7 +32,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    viewBinding{
+    viewBinding {
         enabled true
     }
     buildFeatures {
@@ -75,8 +74,6 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.5.1'
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation "androidx.room:room-runtime:2.5.1"
-    implementation "androidx.room:room-paging:2.5.1"
-    kapt 'androidx.room:room-compiler:2.5.1'
 
     //ViewBinding & Glide
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.9'
