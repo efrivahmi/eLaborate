@@ -54,9 +54,6 @@ class RegisterActivity : AppCompatActivity() {
                 uploadData(username, email, password, confirmPassword)
             }
         }
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
     }
 
     private fun uploadData(username: String, email: String, password: String, confirmPassword: String) {
@@ -91,10 +88,5 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun isValidEmail(email: CharSequence): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
     }
 }
