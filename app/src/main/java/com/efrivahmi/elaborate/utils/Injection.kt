@@ -14,6 +14,6 @@ object Injection {
     fun labRepository(context: Context): DataSource {
         val preferences = UserPreference.getInstance(context.dataStore)
         val apiService = ApiConfig.getConfigApi()
-        return DataSource.getInstance(preferences, apiService, /*labDatabase*/)
+        return DataSource.getInstance(preferences, apiService)
     }
 }

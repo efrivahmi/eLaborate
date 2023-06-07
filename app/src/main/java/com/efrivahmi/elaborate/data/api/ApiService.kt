@@ -1,5 +1,6 @@
 package com.efrivahmi.elaborate.data.api
 
+import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignOut
 import com.efrivahmi.elaborate.data.response.SignUp
@@ -9,16 +10,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-    @FormUrlEncoded
     @POST("/signup")
     fun signUp(
-        @Field("username") username: String,
-        @Field("email") email: String,
-        @Field("password") password: String,
-        @Field("confirmPassword") confirmPassword: String
+        @Body user: UserRegister
     ): Call<SignUp>
 
-    @FormUrlEncoded
     @POST("/signin")
     fun signIn(
         @Field("email") email: String,

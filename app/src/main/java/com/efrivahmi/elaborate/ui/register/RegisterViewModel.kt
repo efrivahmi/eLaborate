@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.efrivahmi.elaborate.data.model.UserModel
+import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.SignUp
 import com.efrivahmi.elaborate.utils.HelperToast
@@ -15,8 +17,10 @@ class RegisterViewModel(private val dataSource: DataSource) : ViewModel() {
     val toast: LiveData<HelperToast<String>> = dataSource.toastText
 
     fun uploadRegisData(username: String, email: String, password: String, confirmPassword: String) {
+        val user = UserRegister(username, email, password, confirmPassword)
         viewModelScope.launch {
-            dataSource.registerClient(username, email, password, confirmPassword)
+            dataSource.registerClient(user)
         }
     }
+
 }

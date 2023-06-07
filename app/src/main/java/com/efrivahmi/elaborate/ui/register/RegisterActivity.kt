@@ -1,13 +1,14 @@
 package com.efrivahmi.elaborate.ui.register
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
-import android.widget.Button
+import android.view.animation.AnimationUtils
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.ActivityRegisterBinding
 import com.efrivahmi.elaborate.ui.custom.Password
@@ -43,12 +44,14 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString().trim()
             val confirmPassword = binding.cpasswordEditText.text.toString().trim()
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() && password == confirmPassword || !isValidEmail(email)) {
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() && password == confirmPassword || !isValidEmail(
+                    email
+                )
+            ) {
                 binding.usernameEditText.error = FILL_NAME
                 binding.emailEditText.error = FILL_EMAIL
                 binding.passwordEditText.error = FILL_PASSWORD
             } else {
-                showToast()
                 uploadData(username, email, password, confirmPassword)
                 showLoading()
             }
@@ -61,14 +64,34 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+        binding.term.setOnClickListener {
+            val intent = Intent(this, TermCondition::class.java)
+            startActivity(intent)
+        }
+        binding.privacy.setOnClickListener {
+            val intent = Intent(this, TermCondition::class.java)
+            startActivity(intent)
+        }
     }
 
+    @Suppress("DEPRECATION")
+    private val itemRegisterHandler = Handler()
+
+    @SuppressLint("SetTextI18n")
     private fun uploadData(username: String, email: String, password: String, confirmPassword: String) {
         registerViewModel.uploadRegisData(username, email, password, confirmPassword)
         registerViewModel.regis.observe(this) { response ->
             if (!response.error) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
+                binding.itemRegister.visibility = View.VISIBLE
+                binding.error.text = "Successfully create an account, please sign in to access the application."
+                val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+                binding.itemRegister.startAnimation(slideUpAnimation)
+                itemRegisterHandler.postDelayed({
+                    startActivity(Intent(this, WelcomeActivity::class.java))
+                    finish()
+                }, 4000)
+            } else {
+                binding.itemRegister.visibility = View.GONE
             }
         }
     }
@@ -76,16 +99,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun showLoading() {
         registerViewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar2.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-    }
-
-    private fun showToast() {
-        registerViewModel.toast.observe(this) {
-            it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(
-                    this, toastText, Toast.LENGTH_SHORT
-                ).show()
-            }
         }
     }
 

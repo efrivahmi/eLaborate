@@ -31,4 +31,8 @@
     <string name="registerinfo">Please Register an Account to Access the e-LABorate Application</string>
     <string name="logintoo">Don\'t have an account?</string>
     <string name="confirmPasswordEditText">Konfirmasi ulang password anda</string>
+    <string name="notifregis">Notification</string>
+    <string name="succesregister">Successfully create an account, please sign in to access the application.</string>
+    <string name="img_user">Success Register</string>
+    <string name="terms_privacy_content">Kebijakan dan Privacy</string>
 </resources>

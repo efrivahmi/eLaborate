@@ -3,9 +3,10 @@ package com.efrivahmi.elaborate.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.ExperimentalPagingApi
 import com.efrivahmi.elaborate.data.api.ApiService
+import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.model.UserPreference
+import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.response.SignUp
 //import com.efrivahmi.elaborate.local.room.LabDatabase
 import com.efrivahmi.elaborate.utils.HelperToast
@@ -39,9 +40,9 @@ class DataSource private constructor(
     private val _toastText = MutableLiveData<HelperToast<String>>()
     val toastText: LiveData<HelperToast<String>> = _toastText
 
-    fun registerClient(username: String, email: String, password: String, confirmPassword: String) {
+    fun registerClient(user: UserRegister) {
         _isLoading.value = true
-        val client = apiService.signUp(username, email, password, confirmPassword)
+        val client = apiService.signUp(user)
         client.enqueue(object : Callback<SignUp> {
             override fun onResponse(call: Call<SignUp>, response: Response<SignUp>) {
                 _isLoading.value = false
@@ -61,4 +62,5 @@ class DataSource private constructor(
             }
         })
     }
+
 }
