@@ -1,12 +1,12 @@
 package com.efrivahmi.elaborate.data.response
 
+import com.google.gson.annotations.SerializedName
+
 data class SignIn(
-    val error : String,
-    val message : String,
-    val loginResult: LoginResult
-)
-data class LoginResult (
-    val userId : String,
-    val name : String,
-    val token : String
+    @SerializedName("username")
+    val username: String,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("token")
+    val token: String
 )

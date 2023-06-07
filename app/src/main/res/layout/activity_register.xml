@@ -75,11 +75,10 @@
         app:startIconDrawable="@drawable/ic_name">
 
         <com.efrivahmi.elaborate.ui.custom.Name
-            android:id="@+id/nameEditText"
+            android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
             tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize,DuplicateClickableBoundsCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
