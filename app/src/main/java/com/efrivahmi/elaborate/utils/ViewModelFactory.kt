@@ -16,10 +16,10 @@ class ViewModelFactory(private val pref: DataSource) : ViewModelProvider.NewInst
             //handle logika nya di DataSource mas sama sisa view model yang lain belum
             /*modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(pref) as T
-            }
+            }*/
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(pref) as T
-            }*/
+            }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(pref) as T
             }

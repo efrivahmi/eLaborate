@@ -1,8 +1,10 @@
 package com.efrivahmi.elaborate.data.api
 
+import com.efrivahmi.elaborate.data.model.ForgotPassword
+import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserRegister
+import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
-import com.efrivahmi.elaborate.data.response.SignOut
 import com.efrivahmi.elaborate.data.response.SignUp
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -17,20 +19,13 @@ interface ApiService {
 
     @POST("/signin")
     fun signIn(
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Body user: UserLogin
     ): Call<SignIn>
-
-    @FormUrlEncoded
-    @POST("/signout")
-    fun signOut(
-        @Header("Authorization") token: String
-    ): Call<SignOut>
 
     @POST("/forgot-password")
     fun forgotPassword(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Body user: ForgotPassword
+    ): Call<FpResponse>
 
     @POST("/verify-code")
     fun verifyCode(

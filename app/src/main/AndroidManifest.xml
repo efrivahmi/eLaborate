@@ -26,6 +26,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ELaborate"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.login.forget.ForgetPasswordActivity"
+            android:label="Forget Password"
+            android:parentActivityName=".ui.login.LoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".ui.register.PrivacyPolicy"
+            android:exported="false" />
         <activity
             android:name=".ui.register.TermCondition"
             android:exported="false" />
@@ -43,7 +55,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

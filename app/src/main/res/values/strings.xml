@@ -17,6 +17,7 @@
     <string name="email">Email</string>
     <string name="welcomeBack">Welcome Back to e-LABorate Application</string>
     <string name="forget_password">Forget Password?</string>
+    <string name="forget_password1">Forget Password</string>
     <string name="click_here">Click Here</string>
     <string name="register">Sign Up</string>
     <string name="registertoo">Already have an account?</string>
@@ -34,5 +35,12 @@
     <string name="notifregis">Notification</string>
     <string name="succesregister">Successfully create an account, please sign in to access the application.</string>
     <string name="img_user">Success Register</string>
-    <string name="terms_privacy_content">Kebijakan dan Privacy</string>
+    <string name="syarat_ketentuan">Syarat &amp; Ketentuan untuk e-LABorate:\n\n1. Penggunaan Aplikasi:\n    Dengan menggunakan aplikasi e-LABorate, Anda setuju untuk mematuhi dan terikat oleh syarat dan ketentuan yang ditetapkan. Anda harus menggunakan aplikasi ini sesuai dengan hukum yang berlaku dan bertanggung jawab atas segala tindakan yang dilakukan.\n\n2. Informasi Pribadi:\n    Saat menggunakan aplikasi ini, Anda mungkin diminta untuk menyediakan informasi pribadi. Kami akan menjaga kerahasiaan informasi tersebut sesuai dengan Kebijakan Privasi kami (lihat bagian di bawah).\n\n3. Kewajiban Pengguna:\n    Anda bertanggung jawab atas akurasi informasi yang Anda berikan dalam aplikasi ini. Anda juga diharapkan untuk menggunakan aplikasi ini secara bertanggung jawab dan menghormati hak dan privasi pengguna lain.\n\n4. Kekayaan Intelektual:\n    Seluruh konten dalam aplikasi ini, termasuk tetapi tidak terbatas pada teks, gambar, video, dan desain, merupakan milik dari e-LABorate atau pihak ketiga yang telah memberikan izin penggunaannya. Anda dilarang menggunakan, menyalin, atau mendistribusikan konten tersebut tanpa izin tertulis dari pemiliknya.\n\n5. Penanggung Jawab:\n    Meskipun kami berusaha sebaik mungkin untuk menyediakan informasi yang akurat, e-LABorate tidak memberikan jaminan atas keakuratan, kelengkapan, atau ketersediaan informasi yang diberikan dalam aplikasi ini. Anda bertanggung jawab penuh atas penggunaan informasi tersebut.</string>
+    <string name="kebijakan_privasi">Kebijakan Privasi:\n\n1. Pengumpulan Informasi:\n    Kami dapat mengumpulkan informasi pribadi Anda, seperti nama, alamat email, dan data kesehatan, untuk keperluan pendaftaran dan penggunaan aplikasi. Informasi ini akan dijaga kerahasiaannya dan digunakan sesuai dengan kebijakan privasi ini.\n\n2. Penggunaan Informasi:\n    Informasi pribadi yang kami kumpulkan dapat digunakan untuk memberikan layanan yang diminta, mengirimkan pembaruan, melakukan analisis statistik, atau untuk tujuan penelitian yang telah diubah menjadi bentuk yang tidak dapat diidentifikasi.\n\n3. Keamanan Data:\n    Kami mengambil langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, atau pengungkapan yang tidak sah. Namun, perlu diingat bahwa tidak ada metode transmisi data yang 100% aman di internet.\n\n4. Pengungkapan kepada Pihak Ketiga:\n    Kami tidak akan mengungkapkan informasi pribadi Anda kepada pihak ketiga tanpa izin Anda, kecuali jika diwajibkan oleh hukum atau jika diperlukan untuk tujuan layanan yang diminta.\n\n5. Perubahan Kebijakan Privasi:\n    Kami dapat memperbarui kebijakan privasi ini dari waktu ke waktu. Setiap perubahan akan diinformasikan melalui pembaruan pada aplikasi atau melalui metode komunikasi lain yang sesuai.\n\nDengan menggunakan aplikasi e-LABorate, Anda menyetujui dan memahami Conditions &amp; Terms (Syarat &amp; Ketentuan) serta Kebijakan Privasi yang telah ditetapkan.</string>
+    <string name="forget">The verification code has been emailed to</string>
+    <string name="emailforget">example@gmail.com</string>
+    <string name="please">Please enter the verification code correctly.</string>
+    <string name="resend">Haven\'t Received Verification Code?</string>
+    <string name="resendverify">Resend Verification Code</string>
+    <string name="next">Next</string>
 </resources>

@@ -1,10 +1,12 @@
-package com.efrivahmi.elaborate.data.model
+package com.efrivahmi.elaborate.data.preference
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.efrivahmi.elaborate.data.model.UserLogin
+import com.efrivahmi.elaborate.data.model.UserModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -14,9 +16,9 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private var INSTANCE: UserPreference? = null
 
         private val USERNAME_KEY = stringPreferencesKey("username")
+        private val TOKEN_KEY = stringPreferencesKey("confirmPassword")
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val PASSWORD_KEY = stringPreferencesKey("password")
-        private val CONFIRMPASSWORD_KEY = stringPreferencesKey("confirmPassword")
         private val STATE_KEY = booleanPreferencesKey("state")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
@@ -32,21 +34,18 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         return dataStore.data.map { preferences ->
             UserModel(
                 preferences[USERNAME_KEY] ?:"",
+                preferences[TOKEN_KEY] ?:"",
                 preferences[EMAIL_KEY] ?:"",
                 preferences[PASSWORD_KEY] ?:"",
-                preferences[CONFIRMPASSWORD_KEY] ?:"",
                 preferences[STATE_KEY] ?: false
             )
         }
     }
 
-    suspend fun saveUser(user: UserModel) {
+    suspend fun saveUser(user: UserLogin) {
         dataStore.edit { preferences ->
-            preferences[USERNAME_KEY] = user.username
             preferences[EMAIL_KEY] = user.email
             preferences[PASSWORD_KEY] = user.password
-            preferences[CONFIRMPASSWORD_KEY] = user.confirmPassword
-            preferences[STATE_KEY] = user.isLogin
         }
     }
 

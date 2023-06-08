@@ -5,7 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.efrivahmi.elaborate.data.api.ApiConfig
-import com.efrivahmi.elaborate.data.model.UserPreference
+import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.repository.DataSource
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("token")

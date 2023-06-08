@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(private val dataSource: DataSource) : ViewModel() {
     val regis: LiveData<SignUp> = dataSource.registerResult
     val isLoading: MutableLiveData<Boolean> = dataSource.isLoading
-    val toast: LiveData<HelperToast<String>> = dataSource.toastText
 
     fun uploadRegisData(username: String, email: String, password: String, confirmPassword: String) {
         val user = UserRegister(username, email, password, confirmPassword)
@@ -22,5 +21,4 @@ class RegisterViewModel(private val dataSource: DataSource) : ViewModel() {
             dataSource.registerClient(user)
         }
     }
-
 }

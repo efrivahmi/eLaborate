@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.efrivahmi.elaborate.R
@@ -20,23 +22,26 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var passwordEditText: Password
     private lateinit var confirmPasswordEditText: EditText
+    private lateinit var agreementCheckBox: CheckBox
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var factory: ViewModelFactory
     private val registerViewModel: RegisterViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
 
         passwordEditText = findViewById(R.id.cpasswordEditText)
         confirmPasswordEditText = findViewById(R.id.passwordEditText)
+        agreementCheckBox = findViewById(R.id.agreement)
         passwordEditText.setConfirmPasswordEditText(confirmPasswordEditText)
 
         clickButton()
     }
+
     private fun clickButton() {
         binding.registerButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString().trim()
@@ -44,18 +49,20 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString().trim()
             val confirmPassword = binding.cpasswordEditText.text.toString().trim()
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() && password == confirmPassword || !isValidEmail(
-                    email
-                )
-            ) {
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() && password == confirmPassword || !isValidEmail(email)) {
                 binding.usernameEditText.error = FILL_NAME
                 binding.emailEditText.error = FILL_EMAIL
                 binding.passwordEditText.error = FILL_PASSWORD
             } else {
-                uploadData(username, email, password, confirmPassword)
-                showLoading()
+                if (agreementCheckBox.isChecked) {
+                    uploadData(username, email, password, confirmPassword)
+                    showLoading()
+                } else {
+                    Toast.makeText(this, "Please agree to the Terms & Conditions", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
         binding.arrow.setOnClickListener {
             val intent = Intent(this, WelcomeActivity::class.java)
             startActivity(intent)
@@ -69,7 +76,7 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.privacy.setOnClickListener {
-            val intent = Intent(this, TermCondition::class.java)
+            val intent = Intent(this, PrivacyPolicy::class.java)
             startActivity(intent)
         }
     }

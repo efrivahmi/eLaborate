@@ -74,7 +74,7 @@
         app:startIconDrawable="@drawable/ic_email">
 
         <com.efrivahmi.elaborate.ui.custom.Email
-            android:id="@+id/emailEditText"
+            android:id="@+id/email_edit_text_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -108,7 +108,7 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.efrivahmi.elaborate.ui.custom.InputPassword
-            android:id="@+id/passwordEditText"
+            android:id="@+id/password_edit_text_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -125,8 +125,7 @@
         android:layout_marginEnd="70dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="@id/passwordEditTextLayout"
-        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout"
-        />
+        app:layout_constraintTop_toBottomOf="@id/passwordEditTextLayout" />
 
     <TextView
         android:id="@+id/tv_forget_password_action"
@@ -142,8 +141,8 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_width="353dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="100dp"
@@ -154,6 +153,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
+        app:layout_constraintVertical_bias="0.496"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
     <TextView
@@ -170,7 +170,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/register_action"
+        android:id="@+id/login_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -185,4 +185,13 @@
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toEndOf="@+id/tv_register"
         tools:ignore="TextContrastCheck" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/progressBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

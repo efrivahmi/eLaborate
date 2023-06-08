@@ -2,7 +2,7 @@ package com.efrivahmi.elaborate.data.model
 
 import com.google.gson.annotations.SerializedName
 
-class UserRegister (
+data class UserRegister (
     @SerializedName("username")
     val username: String,
     @SerializedName("email")

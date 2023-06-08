@@ -3,12 +3,16 @@ package com.efrivahmi.elaborate.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.efrivahmi.elaborate.data.api.ApiService
+import com.efrivahmi.elaborate.data.model.ForgotPassword
+import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserModel
-import com.efrivahmi.elaborate.data.model.UserPreference
+import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.model.UserRegister
+import com.efrivahmi.elaborate.data.response.FpResponse
+import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
-//import com.efrivahmi.elaborate.local.room.LabDatabase
 import com.efrivahmi.elaborate.utils.HelperToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +34,12 @@ class DataSource private constructor(
                 instance ?: DataSource(pref, apiService).also { instance = it }
             }
     }
+
+    private val _forgot = MutableLiveData<FpResponse>()
+    val forgot: LiveData<FpResponse> = _forgot
+
+    private val _login = MutableLiveData<SignIn>()
+    val login: LiveData<SignIn> = _login
 
     private val _registerResult = MutableLiveData<SignUp>()
     val registerResult: LiveData<SignUp> = _registerResult
@@ -63,4 +73,66 @@ class DataSource private constructor(
         })
     }
 
+    fun uploadLogin(user: UserLogin) {
+        _isLoading.value = true
+        val client = apiService.signIn(user)
+        client.enqueue(object : Callback<SignIn> {
+                override fun onResponse(call: Call<SignIn>, response: Response<SignIn>) {
+                    _isLoading.value = false
+                    if (response.isSuccessful && response.body() != null) {
+                        _login.value = response.body()
+                        _toastText.value = HelperToast(response.body()?.message.toString())
+                    } else {
+                        _toastText.value = HelperToast(response.message().toString())
+                        Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<SignIn>, t: Throwable) {
+                    _isLoading.value = false
+                    _toastText.value = HelperToast(t.message.toString())
+                    Log.e(TAG, "Failed Login: ${t.message.toString()}")
+                }
+            })
+    }
+
+    fun forgotPassword(email: String) {
+        _isLoading.value = true
+        val requestBody = ForgotPassword(email)
+        val call = apiService.forgotPassword(requestBody)
+        call.enqueue(object : Callback<FpResponse> {
+            override fun onResponse(call: Call<FpResponse>, response: Response<FpResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful&& response.body() != null) {
+                    _forgot.value = response.body()
+                    _toastText.value = HelperToast(response.body()?.message.toString())
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<FpResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = HelperToast(t.message.toString())
+                Log.e(TAG, "Failed Login: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun getPatient(): LiveData<UserModel> {
+        return pref.getUser().asLiveData()
+    }
+
+    suspend fun saveUser(session: UserLogin) {
+        pref.saveUser(session)
+    }
+
+    suspend fun login() {
+        pref.login()
+    }
+
+    suspend fun logout() {
+        pref.logout()
+    }
 }
