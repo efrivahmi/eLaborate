@@ -10,7 +10,7 @@
         <LinearLayout
             android:id="@+id/home_hand"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="250dp"
             android:orientation="vertical"
             android:background="@drawable/home"
             tools:ignore="MissingConstraints"
@@ -37,100 +37,115 @@
                 android:text="@string/how_is_your_day"/>
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/content"
+    <ScrollView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="@id/home_hand"
+        app:layout_constraintTop_toBottomOf="@id/home_hand"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/home_hand"
-            app:layout_constraintTop_toBottomOf="@id/home_hand">
+            >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/tv_diagnose"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Diagnosis"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
-                <TextView
-                    android:id="@+id/tv_diagnose"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/row_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/tv_diagnose"
+                app:layout_constraintTop_toBottomOf="@id/tv_diagnose"
+                >
+
+                <ImageView
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:textSize="16sp"
-                    android:text="Diagnosis"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    android:layout_marginEnd="25dp"
+                    android:contentDescription="@string/diagnose"
+                    android:src="@drawable/diagnosis"
+                    />
 
-                <LinearLayout
-                    android:id="@+id/row_one"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="@id/tv_diagnose"
-                    app:layout_constraintTop_toBottomOf="@id/tv_diagnose">
+                    android:contentDescription="@string/result"
+                    android:src="@drawable/result"
+                    />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="25dp"
-                        android:src="@drawable/diagnosis"
-                        android:contentDescription="@string/diagnose"
-                        />
+            <TextView
+                android:id="@+id/tv_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:text="Rekomendasi"
+                android:textSize="16sp"
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/result"
-                        android:contentDescription="@string/result"
-                        />
-                </LinearLayout>
+                app:layout_constraintStart_toStartOf="@id/row_one"
+                app:layout_constraintTop_toBottomOf="@id/row_one"
+                />
 
-                <TextView
-                    android:id="@+id/tv_recommend"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/row_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/tv_recommend"
+                app:layout_constraintTop_toBottomOf="@id/tv_recommend"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_medicine"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:text="Rekomendasi"
-                    android:fontFamily="@font/poppins_semi_bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="25dp"
+                    android:src="@drawable/medicine"
+                    />
 
-                    app:layout_constraintStart_toStartOf="@id/row_one"
-                    app:layout_constraintTop_toBottomOf="@id/row_one"/>
-
-                <LinearLayout
-                    android:id="@+id/row_two"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="@id/tv_recommend"
-                    app:layout_constraintTop_toBottomOf="@id/tv_recommend">
+                    android:src="@drawable/workout"
+                    />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/medicine"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/workout"
-                        />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/doctor"/>
-                </LinearLayout>
+            </LinearLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/doctor"
+                android:layout_marginTop="25dp"
+                app:layout_constraintStart_toStartOf="@id/row_two"
+                app:layout_constraintTop_toBottomOf="@+id/row_two"
+                />
 
 
 
 
-        </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
+    </ScrollView>
 
 
 </LinearLayout>
