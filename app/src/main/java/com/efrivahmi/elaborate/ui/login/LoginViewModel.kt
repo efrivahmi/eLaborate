@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val dataSource: DataSource) : ViewModel() {
     val login: LiveData<SignIn> = dataSource.login
     val isLoading: MutableLiveData<Boolean> = dataSource.isLoading
-    val toast: LiveData<HelperToast<String>> = dataSource.toastText
 
     fun uploadLoginData(email: String, password: String) {
         val user = UserLogin(email,  password)

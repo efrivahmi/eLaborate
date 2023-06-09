@@ -1,10 +1,12 @@
 package com.efrivahmi.elaborate.data.api
 
 import com.efrivahmi.elaborate.data.model.ForgotPassword
+import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.model.Verify
 import com.efrivahmi.elaborate.data.response.FpResponse
+import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
 import com.efrivahmi.elaborate.data.response.VerifyCode
@@ -36,8 +38,8 @@ interface ApiService {
 
     @POST("/reset-password")
     fun resetPassword(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Body request: ResetPassword
+    ): RpResponse
 
     @GET("/{userId}")
     fun getHome(

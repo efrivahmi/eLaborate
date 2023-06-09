@@ -74,6 +74,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun uploadData(email: String, password: String) {
+        if (password.isEmpty()) {
+            Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         loginViewModel.uploadLoginData(email, password)
         loginViewModel.login.observe(this) { response ->
             if (!response.error) {
@@ -90,7 +95,11 @@ class LoginActivity : AppCompatActivity() {
                 if (response.message == "Invalid password") {
                     incorrectPasswordCount++
                     handleIncorrectPassword(email)
-                    Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
+                    if (incorrectPasswordCount >= 1) {
+                        Toast.makeText(this, "Please use the forgot password feature", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -119,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
     private fun handleIncorrectPassword(email: String) {
         incorrectPasswordCount++
 
-        if (incorrectPasswordCount >= 3) {
+        if (incorrectPasswordCount >= 1) {
             isLoginAllowed = false
 
             val intent = Intent(this, ForgetPasswordActivity::class.java)

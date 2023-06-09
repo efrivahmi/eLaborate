@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.efrivahmi.elaborate.data.api.ApiService
 import com.efrivahmi.elaborate.data.model.ForgotPassword
+import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.model.Verify
 import com.efrivahmi.elaborate.data.response.FpResponse
+import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
 import com.efrivahmi.elaborate.data.response.VerifyCode
@@ -54,6 +56,9 @@ class DataSource private constructor(
 
     private val _verify = MutableLiveData<VerifyCode>()
     val verify: LiveData<VerifyCode> = _verify
+
+    private val _resetPasswordResult = MutableLiveData<RpResponse>()
+    val resetPasswordResult: LiveData<RpResponse> = _resetPasswordResult
 
     fun registerClient(user: UserRegister) {
         _isLoading.value = true

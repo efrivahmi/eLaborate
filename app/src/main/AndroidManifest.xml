@@ -36,6 +36,9 @@
                 android:value=".ui.login.LoginActivity" />
         </activity>
         <activity
+            android:name=".ui.login.editpassword.EditPasswordActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.register.PrivacyPolicy"
             android:exported="false" />
         <activity

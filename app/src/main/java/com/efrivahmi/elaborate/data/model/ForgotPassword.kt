@@ -1,5 +1,5 @@
 package com.efrivahmi.elaborate.data.model
 
-class ForgotPassword (
+data class ForgotPassword (
     val email: String
 )
