@@ -43,6 +43,10 @@
     <string name="resend">Haven\'t Received Verification Code?</string>
     <string name="resendverify">Resend Verification Code</string>
     <string name="next">Next</string>
+    <string name="send">Send Code</string>
+    <string name="newpassword">New Password</string>
+    <string name="editpassword">Please make a password change, make sure to fill in a strong password</string>
+    <string name="editpass">Edit Password</string>
     <string name="how_is_your_day">Bagaimana kabar kamu hari ini?</string>
     <string name="hello">Hi, %1$s</string>
     <string name="diagnose">Diagnose</string>

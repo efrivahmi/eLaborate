@@ -10,9 +10,11 @@ import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.model.UserRegister
+import com.efrivahmi.elaborate.data.model.Verify
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
+import com.efrivahmi.elaborate.data.response.VerifyCode
 import com.efrivahmi.elaborate.utils.HelperToast
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,9 +37,6 @@ class DataSource private constructor(
             }
     }
 
-    private val _forgot = MutableLiveData<FpResponse>()
-    val forgot: LiveData<FpResponse> = _forgot
-
     private val _login = MutableLiveData<SignIn>()
     val login: LiveData<SignIn> = _login
 
@@ -49,6 +48,12 @@ class DataSource private constructor(
 
     private val _toastText = MutableLiveData<HelperToast<String>>()
     val toastText: LiveData<HelperToast<String>> = _toastText
+
+    private val _forgot = MutableLiveData<FpResponse>()
+    val forgot: LiveData<FpResponse> = _forgot
+
+    private val _verify = MutableLiveData<VerifyCode>()
+    val verify: LiveData<VerifyCode> = _verify
 
     fun registerClient(user: UserRegister) {
         _isLoading.value = true
@@ -77,34 +82,10 @@ class DataSource private constructor(
         _isLoading.value = true
         val client = apiService.signIn(user)
         client.enqueue(object : Callback<SignIn> {
-                override fun onResponse(call: Call<SignIn>, response: Response<SignIn>) {
-                    _isLoading.value = false
-                    if (response.isSuccessful && response.body() != null) {
-                        _login.value = response.body()
-                        _toastText.value = HelperToast(response.body()?.message.toString())
-                    } else {
-                        _toastText.value = HelperToast(response.message().toString())
-                        Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<SignIn>, t: Throwable) {
-                    _isLoading.value = false
-                    _toastText.value = HelperToast(t.message.toString())
-                    Log.e(TAG, "Failed Login: ${t.message.toString()}")
-                }
-            })
-    }
-
-    fun forgotPassword(email: String) {
-        _isLoading.value = true
-        val requestBody = ForgotPassword(email)
-        val call = apiService.forgotPassword(requestBody)
-        call.enqueue(object : Callback<FpResponse> {
-            override fun onResponse(call: Call<FpResponse>, response: Response<FpResponse>) {
+            override fun onResponse(call: Call<SignIn>, response: Response<SignIn>) {
                 _isLoading.value = false
-                if (response.isSuccessful&& response.body() != null) {
-                    _forgot.value = response.body()
+                if (response.isSuccessful && response.body() != null) {
+                    _login.value = response.body()
                     _toastText.value = HelperToast(response.body()?.message.toString())
                 } else {
                     _toastText.value = HelperToast(response.message().toString())
@@ -112,10 +93,56 @@ class DataSource private constructor(
                 }
             }
 
-            override fun onFailure(call: Call<FpResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SignIn>, t: Throwable) {
                 _isLoading.value = false
                 _toastText.value = HelperToast(t.message.toString())
                 Log.e(TAG, "Failed Login: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun forgotPassword(user: ForgotPassword) {
+        _isLoading.value = true
+        val callForgotPassword = apiService.forgotPassword(user)
+        callForgotPassword.enqueue(object : Callback<FpResponse> {
+            override fun onResponse(call: Call<FpResponse>, response: Response<FpResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _forgot.value = response.body()
+                    _toastText.value = HelperToast(response.body()?.message.toString())
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(TAG, "Failed to send forgot password request: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<FpResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = HelperToast(t.message.toString())
+                Log.e(TAG, "Failed to send forgot password request: ${t.message.toString()}")
+            }
+        })
+    }
+
+    fun verifyCode(user: Verify) {
+        _isLoading.value = true
+        val callVerifyCode = apiService.verifyCode(user)
+        callVerifyCode.enqueue(object : Callback<VerifyCode> {
+            override fun onResponse(call: Call<VerifyCode>, response: Response<VerifyCode>) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _verify.value = response.body()
+                    _toastText.value = HelperToast(response.body()?.message.toString())
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(TAG, "Failed to verify code: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<VerifyCode>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = HelperToast(t.message.toString())
+                Log.e(TAG, "Failed to verify code: ${t.message.toString()}")
             }
         })
     }

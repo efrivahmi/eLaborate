@@ -3,9 +3,11 @@ package com.efrivahmi.elaborate.data.api
 import com.efrivahmi.elaborate.data.model.ForgotPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserRegister
+import com.efrivahmi.elaborate.data.model.Verify
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
+import com.efrivahmi.elaborate.data.response.VerifyCode
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -29,8 +31,8 @@ interface ApiService {
 
     @POST("/verify-code")
     fun verifyCode(
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Body user: Verify
+    ): Call<VerifyCode>
 
     @POST("/reset-password")
     fun resetPassword(

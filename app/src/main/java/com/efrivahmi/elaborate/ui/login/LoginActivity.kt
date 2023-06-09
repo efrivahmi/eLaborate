@@ -25,10 +25,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        clickButton()
 
         factory = ViewModelFactory.getInstance(this)
-
-        clickButton()
     }
 
     private fun clickButton() {
@@ -41,13 +40,14 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (email.isEmpty() || password.isEmpty() || !isValidEmail(email)) {
+            if (email.isEmpty() && password.isEmpty() && !isValidEmail(email)) {
                 binding.emailEditText2.error = FILL_EMAIL
                 binding.passwordEditText2.error = FILL_PASSWORD
             } else {
                 showLoading()
                 uploadData(email, password)
                 loginViewModel.login()
+                showToast("Invalid Email or Password")
             }
         }
         binding.arrow.setOnClickListener {

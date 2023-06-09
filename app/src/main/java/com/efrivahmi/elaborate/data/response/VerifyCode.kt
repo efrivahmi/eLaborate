@@ -1,6 +1,6 @@
 package com.efrivahmi.elaborate.data.response
 
-data class FpResponse(
+data class VerifyCode(
     val message: String,
     val error: String
 )
