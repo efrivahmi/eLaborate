@@ -49,6 +49,34 @@
     <string name="editpass">Edit Password</string>
     <string name="how_is_your_day">Bagaimana kabar kamu hari ini?</string>
     <string name="hello">Hi, %1$s</string>
-    <string name="diagnose">Diagnose</string>
+    <string name="diagnosis">Diagnosis</string>
     <string name="result">Result</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description_diagnosis">Please fill in the data appropriately to avoid errors in diagnosis</string>
+    <string name="age">Age</string>
+    <string name="sex">Sex</string>
+    <string name="red_blood_cell_count">Red Blood Cell Count (RBC)</string>
+    <string name="hemoglobin_hgb">Hemoglobin (HGB)</string>
+    <string name="hematocrit_hct">Hematocrit (HCT)</string>
+    <string name="mean_corpuscular_volume_mcv">Mean Corpuscular Volume (MCV)</string>
+    <string name="mean_corpuscular_hemoglobin_mch">Mean Corpuscular Hemoglobin (MCH)</string>
+    <string name="mean_corpuscular_hemoglobin_concetration_mchc">Mean Corpuscular Hemoglobin Concetration (MCHC)</string>
+    <string name="red_cell_distribution_width_rdw_cv">Red Cell distribution width (RDW-CV)</string>
+    <string name="white_blood_cell_count_wbc">White Blood Cell Count (WBC)</string>
+    <string name="neutrophil_granulocytes_neu_gra_polys_segs_pmns">Neutrophil granulocytes (NEU,GRA,polys,segs,PMNs</string>
+    <string name="lymphocytes_lym_lymphs">Lymphocytes (LYM,Lymphs)</string>
+    <string name="monocytes_mo">Monocytes(MO)</string>
+    <string name="eosinophils_eos">Eosinophils(Eos)</string>
+    <string name="years">Years</string>
+    <string name="unit_of_rbc">10^12 cells/L</string>
+    <string name="unit_of_hgb">g/dl</string>
+    <string name="percent">%</string>
+    <string name="unit_of_mcv">fL</string>
+    <string name="unit_of_mch">pg</string>
+    <string name="unit_of_mchc">g/dL</string>
+    <string name="basophils_ba_basos">Basophils(BA, Basos)</string>
+    <string name="unit_of_wbc">10^9 cells/L</string>
 </resources>
