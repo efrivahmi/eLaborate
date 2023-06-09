@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginStart="15dp"
+    android:layout_marginTop="20dp"
+    tools:context=".ui.main.diagnose.DiagnoseActivity"
+    >
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_24"/>
+
+    <TextView
+        android:id="@+id/tv_diagnosis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/diagnosis"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_description_diagnosis"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/description_diagnosis"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center_horizontal"/>
+
+    <ScrollView
+        android:id="@+id/content_diagnosis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/age"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"/>
+
+                <EditText
+                    android:layout_width="130dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/years"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="20dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/age"
+                app:layout_constraintTop_toBottomOf="@+id/age">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sex"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="40dp"/>
+
+                <EditText
+                    android:layout_width="130dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"/>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/rbc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sex">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/red_blood_cell_count"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="90dp"/>
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_rbc"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hgb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rbc">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hemoglobin_hgb"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="110dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_hgb"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/hct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hgb">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hematocrit_hct"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="110dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/mcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hct">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mean_corpuscular_volume_mcv"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="90dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_mcv"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/mch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mcv">
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mean_corpuscular_hemoglobin_mch"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="70dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_mch"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/mchc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mch">
+
+                <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:text="@string/mean_corpuscular_hemoglobin_concetration_mchc"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="50dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_mchc"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rdw_cv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mchc">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/red_cell_distribution_width_rdw_cv"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="60dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wbc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rdw_cv">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/white_blood_cell_count_wbc"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_of_wbc"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/neu_gra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wbc">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="65dp"
+                    android:text="@string/neutrophil_granulocytes_neu_gra_polys_segs_pmns"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lymphs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/neu_gra">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lymphocytes_lym_lymphs"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/monocytes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lymphs">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monocytes_mo"
+                    android:layout_marginTop="30dp"
+                    />
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/eos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monocytes">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eosinophils_eos"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/basophils"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eos">
+
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basophils_ba_basos"
+                    android:layout_marginTop="30dp"/>
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:height="40dp"
+                    android:background="@color/light_yellow"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="80dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/percent"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginTop="30dp"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
