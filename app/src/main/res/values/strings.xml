@@ -43,4 +43,8 @@
     <string name="resend">Haven\'t Received Verification Code?</string>
     <string name="resendverify">Resend Verification Code</string>
     <string name="next">Next</string>
+    <string name="how_is_your_day">Bagaimana kabar kamu hari ini?</string>
+    <string name="hello">Hi, %1$s</string>
+    <string name="diagnose">Diagnose</string>
+    <string name="result">Result</string>
 </resources>
