@@ -55,12 +55,17 @@ class RegisterActivity : AppCompatActivity() {
                 binding.passwordEditText.error = FILL_PASSWORD
             } else {
                 if (agreementCheckBox.isChecked) {
-                    uploadData(username, email, password, confirmPassword)
-                    showLoading()
+                    if (password.length < 8) {
+                        Toast.makeText(this, "Password must have a\nminimum of 8 characters", Toast.LENGTH_SHORT).show()
+                    } else {
+                        uploadData(username, email, password, confirmPassword)
+                        showLoading()
+                    }
                 } else {
                     Toast.makeText(this, "Please agree to the Terms & Conditions", Toast.LENGTH_SHORT).show()
                 }
             }
+
         }
 
         binding.arrow.setOnClickListener {

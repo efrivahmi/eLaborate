@@ -3,6 +3,7 @@ package com.efrivahmi.elaborate.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -19,7 +20,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private val loginViewModel: LoginViewModel by viewModels { factory }
     private var incorrectPasswordCount: Int = 0
-    private var isLoginAllowed: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,19 +35,24 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText2.text.toString().trim()
             val password = binding.passwordEditText2.text.toString().trim()
 
-            if (!isLoginAllowed) {
-                Toast.makeText(this, "Login is not allowed. Please use the Forgot Password feature.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (email.isEmpty() && password.isEmpty() && !isValidEmail(email)) {
-                binding.emailEditText2.error = FILL_EMAIL
-                binding.passwordEditText2.error = FILL_PASSWORD
+            if (email.isEmpty() || password.isEmpty()) {
+                if (email.isEmpty()) {
+                    binding.emailEditText2.error = FILL_EMAIL
+                }
+                if (password.isEmpty()) {
+                    Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
+                }
+            } else if (!isValidEmail(email)) {
+                binding.emailEditText2.error = INVALID_EMAIL
             } else {
-                showLoading()
-                uploadData(email, password)
-                loginViewModel.login()
-                showToast("Invalid Email or Password")
+                handleIncorrectPassword()
+                if (password.length < 8) {
+                    Toast.makeText(this, "Password must have a\nminimum of 8 characters", Toast.LENGTH_SHORT).show()
+                } else {
+                    showLoading()
+                    uploadData(email, password)
+                    loginViewModel.login()
+                }
             }
         }
         binding.arrow.setOnClickListener {
@@ -62,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText2.text.toString().trim()
 
             if (email.isNotEmpty()) {
-                handleIncorrectPassword(email)
+                handleForgetEmail(email)
             }
         }
     }
@@ -74,33 +79,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun uploadData(email: String, password: String) {
-        if (password.isEmpty()) {
-            Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
-            return
-        }
-
         loginViewModel.uploadLoginData(email, password)
         loginViewModel.login.observe(this) { response ->
             if (!response.error) {
                 showToast(response.message)
                 saveSession(
                     UserLogin(
-                        email = response.email,
+                        email = email,
                         password = password
                     )
                 )
                 navigateToMain()
             } else {
                 showToast(response.message)
-                if (response.message == "Invalid password") {
-                    incorrectPasswordCount++
-                    handleIncorrectPassword(email)
-                    if (incorrectPasswordCount >= 1) {
-                        Toast.makeText(this, "Please use the forgot password feature", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "Invalid Password", Toast.LENGTH_SHORT).show()
-                    }
-                }
             }
         }
     }
@@ -125,21 +116,48 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.saveSession(session)
     }
 
-    private fun handleIncorrectPassword(email: String) {
-        incorrectPasswordCount++
+    private fun handleForgetEmail(email: String){
+        val intent = Intent(this, ForgetPasswordActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
+    }
 
-        if (incorrectPasswordCount >= 1) {
-            isLoginAllowed = false
+    private fun handleIncorrectPassword() {
+        val password = binding.passwordEditText2.text.toString().trim()
+        val email = binding.emailEditText2.text.toString().trim()
 
-            val intent = Intent(this, ForgetPasswordActivity::class.java)
-            intent.putExtra("email", email)
-            startActivity(intent)
-            finish()
+        if (password.isNotEmpty()) {
+            incorrectPasswordCount++
+
+            if (incorrectPasswordCount == 3) {
+                binding.loginButton.isEnabled = true
+                val toastMessage = "You have entered\nincorrect password 3 times."
+                val toast = Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER, 0, 250)
+                toast.show()
+            } else if (incorrectPasswordCount == 10) {
+                binding.loginButton.isEnabled = false
+                val toastMessage = "Please use the Forgot Password feature."
+                val toast = Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER, 0, 250)
+                toast.show()
+            }
+        } else {
+            incorrectPasswordCount = 0
+            if (email.isNotEmpty()) {
+                val toastMessage = "Invalid password"
+                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            } else {
+                val toastMessage = "Invalid password or email"
+                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
+
     companion object {
-        private const val FILL_PASSWORD = "Please fill in the password field"
         private const val FILL_EMAIL = "Please fill in the email field"
+        private const val INVALID_EMAIL = "Please enter a valid email address"
     }
 }

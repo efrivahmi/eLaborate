@@ -1,6 +1,10 @@
 package com.efrivahmi.elaborate.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ResetPassword(
-    val resetToken: String,
+    @SerializedName("resetToken")
+    var resetToken: String,
+    @SerializedName("newPassword")
     val newPassword: String
 )

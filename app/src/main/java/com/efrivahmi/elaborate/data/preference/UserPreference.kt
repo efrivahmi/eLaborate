@@ -1,5 +1,7 @@
 package com.efrivahmi.elaborate.data.preference
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -8,6 +10,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
@@ -20,6 +23,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val PASSWORD_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
+        private val RESET_TOKEN_KEY = stringPreferencesKey("resetToken")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this){
@@ -37,7 +41,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[TOKEN_KEY] ?:"",
                 preferences[EMAIL_KEY] ?:"",
                 preferences[PASSWORD_KEY] ?:"",
-                preferences[STATE_KEY] ?: false
+                preferences[STATE_KEY] ?: false,
+
             )
         }
     }
@@ -59,5 +64,18 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         dataStore.edit { preferences ->
             preferences[STATE_KEY] = false
         }
+    }
+
+    suspend fun saveResetToken(resetToken: String) {
+        dataStore.edit { preferences ->
+            preferences[RESET_TOKEN_KEY] = resetToken
+            Log.d(TAG, "Saved reset token: $resetToken")
+        }
+    }
+
+    suspend fun getResetToken(): String? {
+        return dataStore.data.map { preferences ->
+            preferences[RESET_TOKEN_KEY]
+        }.firstOrNull()
     }
 }

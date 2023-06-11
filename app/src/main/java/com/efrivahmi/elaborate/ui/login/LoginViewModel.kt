@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.SignIn
-import com.efrivahmi.elaborate.utils.HelperToast
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val dataSource: DataSource) : ViewModel() {

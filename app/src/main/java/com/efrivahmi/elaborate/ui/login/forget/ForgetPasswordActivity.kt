@@ -24,7 +24,8 @@ import com.efrivahmi.elaborate.utils.ViewModelFactory
 class ForgetPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgetPasswordBinding
     private lateinit var factory: ViewModelFactory
-    private val viewModel: ForgetPasswordViewModel by viewModels { factory }
+    private val forgetPasswordViewModel: ForgetPasswordViewModel by viewModels { factory }
+    private var resetToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
+        binding.verifyButton.isEnabled = false
 
         val email = intent.getStringExtra("email")
         email?.let {
@@ -41,24 +43,10 @@ class ForgetPasswordActivity : AppCompatActivity() {
         binding.generatedVerifyButton.setOnClickListener {
             val email = binding.emailUser.text.toString().trim()
             if (email.isNotEmpty()) {
-                viewModel.forgotPassword(email)
+                forgetPasswordViewModel.forgotPassword(email)
             } else {
-                Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
+                showToastMessage(HelperToast("Email is required"))
             }
-        }
-
-        viewModel.toastText.observe(this) { toast ->
-            toast?.let {
-                showToastMessage(toast)
-            }
-        }
-
-        viewModel.verifyCode.observe(this) { verifyCode ->
-            handleVerifyCodeResponse(verifyCode)
-        }
-
-        viewModel.forgot.observe(this) { fpResponse ->
-            handleForgotPasswordResponse(fpResponse)
         }
 
         val verificationCodeEditTexts = listOf(
@@ -100,19 +88,37 @@ class ForgetPasswordActivity : AppCompatActivity() {
             val verificationCode = getVerificationCodeFromEditTexts(verificationCodeEditTexts)
             val email = binding.emailUser.text.toString().trim()
             if (email.isNotEmpty()) {
-                viewModel.sendVerificationCode(email, verificationCode)
-            } else {
-                Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
+                forgetPasswordViewModel.sendVerificationCode(email, verificationCode)
             }
         }
+
         binding.arrow.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finishAffinity()
+        }
+
+        forgetPasswordViewModel.resetToken.observe(this) { resetToken ->
+            this.resetToken = resetToken
+        }
+
+        forgetPasswordViewModel.toastText.observe(this) { toast ->
+            toast?.let {
+                showToastMessage(toast)
+            }
+        }
+
+        forgetPasswordViewModel.verifyCode.observe(this) { verifyCode ->
+            handleVerifyCodeResponse(verifyCode)
+        }
+
+        forgetPasswordViewModel.forgot.observe(this) { fpResponse ->
+            handleForgotPasswordResponse(fpResponse)
         }
     }
 
     private fun showLoading() {
-        viewModel.isLoading.observe(this) { isLoading ->
+        forgetPasswordViewModel.isLoading.observe(this) { isLoading ->
             binding.progressBar3.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
@@ -128,34 +134,42 @@ class ForgetPasswordActivity : AppCompatActivity() {
     private val itemForgetHandler = Handler()
 
     @SuppressLint("SetTextI18n")
-    private fun handleVerifyCodeResponse(verifyCode: VerifyCode) {
-        if (verifyCode.error) {
-            Toast.makeText(this, "Verification code verified", Toast.LENGTH_SHORT).show()
-        } else {
+    private fun handleVerifyCodeResponse(verifyCode: VerifyCode): String? {
+        if (!verifyCode.error) {
             showLoading()
             binding.itemForget.visibility = View.VISIBLE
             binding.error.text = "Successful verification, please change the password"
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
             binding.itemForget.startAnimation(slideUpAnimation)
             itemForgetHandler.postDelayed({
-                startActivity(Intent(this, EditPasswordActivity::class.java))
-                finish()
-            }, 4000)
+                resetToken?.let {
+                    forgetPasswordViewModel.saveSession(it)
+                    this.resetToken = it
+                }
+                try {
+                    val intent = Intent(this, EditPasswordActivity::class.java)
+                    intent.putExtra("resetToken", this.resetToken)
+                    startActivity(intent)
+                    finishAffinity()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }, 400)
+            return resetToken
+        } else {
+            showToastMessage(HelperToast("Verification code verification failed"))
         }
+        return null
     }
 
-    @SuppressLint("SetTextI18n")
+
     private fun handleForgotPasswordResponse(fpResponse: FpResponse) {
         if (fpResponse.error) {
-            Toast.makeText(this, "Forgot password request sent", Toast.LENGTH_SHORT).show()
+            showToastMessage(HelperToast("Forgot password request sent"))
             binding.generatedVerifyButton.isEnabled = false
-            binding.generatedVerifyButton.text = "Request Sent"
+            binding.generatedVerifyButton.text = getString(R.string.request_sent)
         } else {
-            Toast.makeText(
-                this,
-                "Code has been send on your email",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToastMessage(HelperToast("Code has been sent to your email"))
         }
     }
 

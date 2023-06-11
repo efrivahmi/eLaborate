@@ -18,6 +18,9 @@ import com.efrivahmi.elaborate.data.response.SignIn
 import com.efrivahmi.elaborate.data.response.SignUp
 import com.efrivahmi.elaborate.data.response.VerifyCode
 import com.efrivahmi.elaborate.utils.HelperToast
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,49 +110,100 @@ class DataSource private constructor(
     }
 
     fun forgotPassword(user: ForgotPassword) {
-        _isLoading.value = true
-        val callForgotPassword = apiService.forgotPassword(user)
-        callForgotPassword.enqueue(object : Callback<FpResponse> {
-            override fun onResponse(call: Call<FpResponse>, response: Response<FpResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful && response.body() != null) {
-                    _forgot.value = response.body()
-                    _toastText.value = HelperToast(response.body()?.message.toString())
-                } else {
-                    _toastText.value = HelperToast(response.message().toString())
-                    Log.e(TAG, "Failed to send forgot password request: ${response.message()}, ${response.body()?.message.toString()}")
-                }
-            }
+        _isLoading.postValue(true)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                apiService.forgotPassword(user).enqueue(object : Callback<FpResponse> {
+                    override fun onResponse(call: Call<FpResponse>, response: Response<FpResponse>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            _forgot.postValue(response.body())
+                            _toastText.postValue(HelperToast(response.body()?.message.toString()))
+                        } else {
+                            _toastText.postValue(HelperToast(response.message().toString()))
+                            Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                        }
+                        _isLoading.postValue(false)
+                    }
 
-            override fun onFailure(call: Call<FpResponse>, t: Throwable) {
-                _isLoading.value = false
-                _toastText.value = HelperToast(t.message.toString())
-                Log.e(TAG, "Failed to send forgot password request: ${t.message.toString()}")
+                    override fun onFailure(call: Call<FpResponse>, t: Throwable) {
+                        _toastText.postValue(HelperToast(t.message.toString()))
+                        Log.e(TAG, "Failed to send forgot password request: ${t.message.toString()}")
+                        _isLoading.postValue(false)
+                    }
+                })
+            } catch (e: Exception) {
+                _toastText.postValue(HelperToast(e.message.toString()))
+                Log.e(TAG, "Failed to send forgot password request: ${e.message.toString()}")
+                _isLoading.postValue(false)
             }
-        })
+        }
     }
 
     fun verifyCode(user: Verify) {
-        _isLoading.value = true
+        _isLoading.postValue(true)
         val callVerifyCode = apiService.verifyCode(user)
         callVerifyCode.enqueue(object : Callback<VerifyCode> {
             override fun onResponse(call: Call<VerifyCode>, response: Response<VerifyCode>) {
-                _isLoading.value = false
+                _isLoading.postValue(false)
                 if (response.isSuccessful && response.body() != null) {
-                    _verify.value = response.body()
-                    _toastText.value = HelperToast(response.body()?.message.toString())
+                    _verify.postValue(response.body())
+                    _toastText.postValue(HelperToast(response.body()?.message.toString()))
+
+                    response.body()?.resetToken?.let { resetToken ->
+                        CoroutineScope(Dispatchers.IO).launch {
+                            pref.saveResetToken(resetToken)
+                        }
+                    }
                 } else {
-                    _toastText.value = HelperToast(response.message().toString())
-                    Log.e(TAG, "Failed to verify code: ${response.message()}, ${response.body()?.message.toString()}")
+                    _toastText.postValue(HelperToast(response.message().toString()))
+                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
                 }
             }
 
             override fun onFailure(call: Call<VerifyCode>, t: Throwable) {
-                _isLoading.value = false
-                _toastText.value = HelperToast(t.message.toString())
+                _isLoading.postValue(false)
+                _toastText.postValue(HelperToast(t.message.toString()))
                 Log.e(TAG, "Failed to verify code: ${t.message.toString()}")
             }
         })
+    }
+
+    fun resetPassword(newPassword: String) {
+        _isLoading.postValue(true)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val storedResetToken = pref.getResetToken()
+
+            if (storedResetToken.isNullOrEmpty()) {
+                _isLoading.postValue(false)
+                _toastText.postValue(HelperToast("Token reset tidak tersedia"))
+                return@launch
+            }
+
+            try {
+                val resetToken = storedResetToken
+                Log.d(TAG, "Reset token: $resetToken")
+
+                val resetPassword = ResetPassword(resetToken, newPassword)
+                val response = apiService.resetPassword(resetPassword).execute()
+                _isLoading.postValue(false)
+
+                if (response.isSuccessful && response.body() != null) {
+                    _resetPasswordResult.postValue(response.body())
+                    _toastText.postValue(HelperToast(response.body()?.message.toString()))
+                } else {
+                    _toastText.postValue(HelperToast(response.message().toString()))
+                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            } catch (e: Exception) {
+                _toastText.postValue(HelperToast(e.message.toString()))
+                Log.e(TAG, "Failed to reset password: ${e.message.toString()}")
+            }
+        }
+    }
+
+    suspend fun saveResetToken(string: String) {
+        pref.saveResetToken(string)
     }
 
     fun getPatient(): LiveData<UserModel> {

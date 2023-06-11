@@ -80,4 +80,6 @@
     <string name="unit_of_mchc">g/dL</string>
     <string name="basophils_ba_basos">Basophils(BA, Basos)</string>
     <string name="unit_of_wbc">10^9 cells/L</string>
+    <string name="successresetPassword">Password successfully changed, please sign in to the application.</string>
+    <string name="request_sent">Request Sent</string>
 </resources>
