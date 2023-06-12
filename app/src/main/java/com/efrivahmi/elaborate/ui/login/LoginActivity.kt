@@ -120,6 +120,7 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, ForgetPasswordActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
+        intent.removeExtra("email")
         finish()
     }
 
@@ -154,7 +155,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
 
     companion object {
         private const val FILL_EMAIL = "Please fill in the email field"

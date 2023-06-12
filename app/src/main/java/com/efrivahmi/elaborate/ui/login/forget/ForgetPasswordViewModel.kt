@@ -14,8 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ForgetPasswordViewModel(private val dataSource: DataSource) : ViewModel() {
-    private val _resetToken = MutableLiveData<String>()
-    val resetToken: LiveData<String> = _resetToken
     val isLoading: LiveData<Boolean> = dataSource.isLoading
     val forgot: LiveData<FpResponse> = dataSource.forgot
     val verifyCode: LiveData<VerifyCode> = dataSource.verify
@@ -33,13 +31,6 @@ class ForgetPasswordViewModel(private val dataSource: DataSource) : ViewModel() 
         val user = Verify(email, verificationCode)
         viewModelScope.launch(Dispatchers.IO) {
             dataSource.verifyCode(user)
-        }
-    }
-
-    fun saveSession(resetToken: String) {
-        viewModelScope.launch {
-            dataSource.saveResetToken(resetToken)
-            _resetToken.value = resetToken
         }
     }
 }

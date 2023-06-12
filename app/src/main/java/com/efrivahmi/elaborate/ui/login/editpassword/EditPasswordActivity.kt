@@ -15,6 +15,8 @@ import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.databinding.ActivityEditPasswordBinding
 import com.efrivahmi.elaborate.ui.login.LoginActivity
+import com.efrivahmi.elaborate.ui.login.forget.ForgetPasswordActivity
+import com.efrivahmi.elaborate.ui.welcome.WelcomeActivity
 import com.efrivahmi.elaborate.utils.HelperToast
 import com.efrivahmi.elaborate.utils.ViewModelFactory
 
@@ -22,7 +24,6 @@ class EditPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditPasswordBinding
     private lateinit var factory: ViewModelFactory
     private val viewModel: EditPasswordViewModel by viewModels { factory }
-    private var resetToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +32,17 @@ class EditPasswordActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
-        val resetToken = intent.getStringExtra("resetToken").toString()
+        val resetToken = intent.getStringExtra("resetToken")
         resetToken.let {
             binding.resetToken.text = it
+            Log.d(TAG, "Token reset: $resetToken")
         }
-        Log.d(TAG, "Token reset: $resetToken")
-
 
         binding.editButton.setOnClickListener {
-            val tokenReset = binding.resetToken.text.toString().trim()
+            val resetToken = binding.resetToken.text.toString().trim()
             val newPassword = binding.passwordEditText3.text.toString().trim()
-            if (tokenReset.isNotEmpty() && newPassword.length >= 8) {
+            if (resetToken.isNotEmpty() && newPassword.length >= 8) {
                 showLoading()
-                viewModel.resetToken
                 viewModel.saveSession(resetToken)
                 viewModel.resetPassword(resetToken, newPassword)
             } else {
@@ -53,10 +52,6 @@ class EditPasswordActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-
-        viewModel.resetToken.observe(this) {
-            this.resetToken = it
         }
 
         viewModel.resetPasswordResult.observe(this) { rpResponse ->
@@ -72,7 +67,6 @@ class EditPasswordActivity : AppCompatActivity() {
         binding.arrow.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finishAffinity()
         }
     }
 
@@ -110,8 +104,8 @@ class EditPasswordActivity : AppCompatActivity() {
             binding.itemEdit.startAnimation(slideUpAnimation)
             itemEditHandler.postDelayed({
                 try{
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finishAffinity()
+                    startActivity(Intent(this, WelcomeActivity::class.java))
+                    finishAndRemoveTask()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

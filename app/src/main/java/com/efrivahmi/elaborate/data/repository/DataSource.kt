@@ -168,7 +168,7 @@ class DataSource private constructor(
         })
     }
 
-    fun resetPassword(newPassword: String) {
+    fun resetPassword(request: ResetPassword) {
         _isLoading.postValue(true)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -184,8 +184,7 @@ class DataSource private constructor(
                 val resetToken = storedResetToken
                 Log.d(TAG, "Reset token: $resetToken")
 
-                val resetPassword = ResetPassword(resetToken, newPassword)
-                val response = apiService.resetPassword(resetPassword).execute()
+                val response = apiService.resetPassword(request).execute()
                 _isLoading.postValue(false)
 
                 if (response.isSuccessful && response.body() != null) {
@@ -202,8 +201,8 @@ class DataSource private constructor(
         }
     }
 
-    suspend fun saveResetToken(string: String) {
-        pref.saveResetToken(string)
+    suspend fun saveResetToken() {
+        pref.getResetToken()
     }
 
     fun getPatient(): LiveData<UserModel> {

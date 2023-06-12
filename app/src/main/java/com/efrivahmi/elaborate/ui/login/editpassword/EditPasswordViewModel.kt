@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.RpResponse
-import com.efrivahmi.elaborate.data.response.VerifyCode
 import com.efrivahmi.elaborate.utils.HelperToast
 import kotlinx.coroutines.launch
 
@@ -16,18 +15,17 @@ class EditPasswordViewModel(private val dataSource: DataSource) : ViewModel() {
     val resetPasswordResult: LiveData<RpResponse> = dataSource.resetPasswordResult
     val toastText: LiveData<HelperToast<String>> = dataSource.toastText
     private val _resetToken = MutableLiveData<String>()
-    var resetToken: LiveData<String> = _resetToken
 
     fun resetPassword(resetToken: String, newPassword: String) {
         val resetPasswordModel = ResetPassword(resetToken, newPassword)
         viewModelScope.launch {
-            dataSource.resetPassword(resetPasswordModel.toString())
+            dataSource.resetPassword(resetPasswordModel)
         }
     }
 
     fun saveSession(resetToken: String) {
         viewModelScope.launch {
-            dataSource.saveResetToken(resetToken)
+            dataSource.saveResetToken()
             _resetToken.value = resetToken
         }
     }

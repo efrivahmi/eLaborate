@@ -25,7 +25,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgetPasswordBinding
     private lateinit var factory: ViewModelFactory
     private val forgetPasswordViewModel: ForgetPasswordViewModel by viewModels { factory }
-    private var resetToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,11 +94,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
         binding.arrow.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finishAffinity()
-        }
-
-        forgetPasswordViewModel.resetToken.observe(this) { resetToken ->
-            this.resetToken = resetToken
         }
 
         forgetPasswordViewModel.toastText.observe(this) { toast ->
@@ -134,7 +128,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
     private val itemForgetHandler = Handler()
 
     @SuppressLint("SetTextI18n")
-    private fun handleVerifyCodeResponse(verifyCode: VerifyCode): String? {
+    private fun handleVerifyCodeResponse(verifyCode: VerifyCode){
         if (!verifyCode.error) {
             showLoading()
             binding.itemForget.visibility = View.VISIBLE
@@ -142,26 +136,19 @@ class ForgetPasswordActivity : AppCompatActivity() {
             val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
             binding.itemForget.startAnimation(slideUpAnimation)
             itemForgetHandler.postDelayed({
-                resetToken?.let {
-                    forgetPasswordViewModel.saveSession(it)
-                    this.resetToken = it
-                }
                 try {
                     val intent = Intent(this, EditPasswordActivity::class.java)
-                    intent.putExtra("resetToken", this.resetToken)
+                    intent.putExtra("resetToken", verifyCode.resetToken)
                     startActivity(intent)
                     finishAffinity()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }, 400)
-            return resetToken
+            }, 500)
         } else {
             showToastMessage(HelperToast("Verification code verification failed"))
         }
-        return null
     }
-
 
     private fun handleForgotPasswordResponse(fpResponse: FpResponse) {
         if (fpResponse.error) {
