@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.efrivahmi.elaborate.data.model.UserLogin
+import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.databinding.ActivityLoginBinding
 import com.efrivahmi.elaborate.ui.main.MainActivity
 import com.efrivahmi.elaborate.ui.register.RegisterActivity
@@ -50,8 +50,9 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Password must have a\nminimum of 8 characters", Toast.LENGTH_SHORT).show()
                 } else {
                     showLoading()
-                    uploadData(email, password)
+                    uploadData()
                     loginViewModel.login()
+                    showToast()
                 }
             }
         }
@@ -78,28 +79,36 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun uploadData(email: String, password: String) {
-        loginViewModel.uploadLoginData(email, password)
+    private fun uploadData() {
+        binding.apply {
+            loginViewModel.uploadLoginData(
+                emailEditText2.text.toString(),
+                passwordEditText2.text.toString()
+            )
+        }
         loginViewModel.login.observe(this) { response ->
-            if (!response.error) {
-                showToast(response.message)
                 saveSession(
-                    UserLogin(
-                        email = email,
-                        password = password
+                    UserModel(
+                        response.userData.userId,
+                        response.userData.username,
+                        response.userData.email,
+                        "Bearer ${response.userData.token}",
+                        true
                     )
                 )
                 navigateToMain()
-            } else {
-                showToast(response.message)
             }
         }
-    }
 
-    private fun showToast(message: String) {
-        Toast.makeText(
-            this, message, Toast.LENGTH_SHORT
-        ).show()
+
+    private fun showToast() {
+        loginViewModel.toast.observe(this) {
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(
+                    this, toastText, Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     private fun navigateToMain() {
@@ -112,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun saveSession(session: UserLogin) {
+    private fun saveSession(session: UserModel) {
         loginViewModel.saveSession(session)
     }
 
@@ -120,7 +129,6 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, ForgetPasswordActivity::class.java)
         intent.putExtra("email", email)
         startActivity(intent)
-        intent.removeExtra("email")
         finish()
     }
 

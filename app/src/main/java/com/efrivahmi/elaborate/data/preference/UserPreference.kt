@@ -18,10 +18,10 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         @Volatile
         private var INSTANCE: UserPreference? = null
 
+        private val USERID_KEY = stringPreferencesKey("userId")
         private val USERNAME_KEY = stringPreferencesKey("username")
-        private val TOKEN_KEY = stringPreferencesKey("confirmPassword")
         private val EMAIL_KEY = stringPreferencesKey("email")
-        private val PASSWORD_KEY = stringPreferencesKey("password")
+        private val TOKEN_KEY = stringPreferencesKey("confirmPassword")
         private val STATE_KEY = booleanPreferencesKey("state")
         private val RESET_TOKEN_KEY = stringPreferencesKey("resetToken")
 
@@ -37,20 +37,22 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     fun getUser(): Flow<UserModel> {
         return dataStore.data.map { preferences ->
             UserModel(
+                preferences[USERID_KEY] ?:"",
                 preferences[USERNAME_KEY] ?:"",
-                preferences[TOKEN_KEY] ?:"",
                 preferences[EMAIL_KEY] ?:"",
-                preferences[PASSWORD_KEY] ?:"",
-                preferences[STATE_KEY] ?: false,
-
+                preferences[TOKEN_KEY] ?:"",
+                preferences[STATE_KEY] ?: false
             )
         }
     }
 
-    suspend fun saveUser(user: UserLogin) {
+    suspend fun saveUser(user: UserModel) {
         dataStore.edit { preferences ->
+            preferences[USERID_KEY] = user.userId
+            preferences[USERNAME_KEY] = user.username
             preferences[EMAIL_KEY] = user.email
-            preferences[PASSWORD_KEY] = user.password
+            preferences[TOKEN_KEY] = user.token
+            preferences[STATE_KEY] = user.isLogin
         }
     }
 

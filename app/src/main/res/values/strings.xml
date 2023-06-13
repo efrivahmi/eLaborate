@@ -82,4 +82,9 @@
     <string name="unit_of_wbc">10^9 cells/L</string>
     <string name="successresetPassword">Password successfully changed, please sign in to the application.</string>
     <string name="request_sent">Request Sent</string>
+    <string name="language">Language Settings</string>
+    <string name="change">Account Settings</string>
+    <string name="edit">Edit</string>
+    <string name="arrow">Go</string>
+    <string name="logout">Log Out</string>
 </resources>

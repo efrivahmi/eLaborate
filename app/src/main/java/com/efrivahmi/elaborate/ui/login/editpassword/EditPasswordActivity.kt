@@ -48,7 +48,8 @@ class EditPasswordActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "Password must be at least 8 characters long",
+                    "Password must have a\n" +
+                            "minimum of 8 characters",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -104,8 +105,8 @@ class EditPasswordActivity : AppCompatActivity() {
             binding.itemEdit.startAnimation(slideUpAnimation)
             itemEditHandler.postDelayed({
                 try{
-                    startActivity(Intent(this, WelcomeActivity::class.java))
-                    finishAndRemoveTask()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

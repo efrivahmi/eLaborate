@@ -1,10 +1,14 @@
 package com.efrivahmi.elaborate.data.response
 
 data class SignIn(
-    val email: String,
+    val code: Int,
     val error: Boolean,
     val message: String,
-    val token: String,
+    val userData: UserData
+)
+data class UserData (
     val userId: String,
-    val username: String
+    val username: String,
+    val email: String,
+    val token: String
 )

@@ -1,7 +1,10 @@
 package com.efrivahmi.elaborate.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class UserRegister (
     @SerializedName("username")
     val username: String,
@@ -11,4 +14,4 @@ data class UserRegister (
     val password: String,
     @SerializedName("confirmPassword")
     val confirmPassword: String
-)
+): Parcelable

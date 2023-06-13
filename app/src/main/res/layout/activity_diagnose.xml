@@ -7,14 +7,14 @@
     android:orientation="vertical"
     android:layout_marginStart="15dp"
     android:layout_marginTop="20dp"
-    tools:context=".ui.main.diagnose.DiagnoseActivity"
-    >
+    tools:context=".ui.main.diagnose.DiagnoseActivity">
 
     <ImageView
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_arrow_back_24"/>
+        android:src="@drawable/baseline_arrow_back_24"
+        android:contentDescription="@string/arrow" />
 
     <TextView
         android:id="@+id/tv_diagnosis"
@@ -31,9 +31,10 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:text="@string/description_diagnosis"
         android:fontFamily="@font/poppins_regular"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:text="@string/description_diagnosis"
+        tools:ignore="TextSizeCheck" />
 
     <ScrollView
         android:id="@+id/content_diagnosis"
@@ -112,9 +113,10 @@
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/red_blood_cell_count"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginTop="30dp"/>
+                    android:text="@string/red_blood_cell_count"
+                    tools:ignore="TextSizeCheck" />
 
                 <EditText
                     android:layout_width="60dp"
@@ -128,9 +130,10 @@
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/unit_of_rbc"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginTop="30dp"/>
+                    android:text="@string/unit_of_rbc"
+                    tools:ignore="TextSizeCheck" />
 
             </LinearLayout>
 
@@ -145,9 +148,10 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/hemoglobin_hgb"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginTop="30dp"/>
+                    android:text="@string/hemoglobin_hgb"
+                    tools:ignore="TextSizeCheck" />
 
                 <EditText
                     android:layout_width="60dp"
@@ -179,9 +183,10 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/hematocrit_hct"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginTop="30dp"/>
+                    android:text="@string/hematocrit_hct"
+                    tools:ignore="TextSizeCheck" />
 
                 <EditText
                     android:layout_width="60dp"
@@ -212,8 +217,9 @@
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:text="@string/mean_corpuscular_volume_mcv"
-                    android:layout_marginTop="30dp"/>
+                    tools:ignore="TextSizeCheck" />
 
                 <EditText
                     android:layout_width="60dp"
@@ -245,9 +251,10 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/mean_corpuscular_hemoglobin_mch"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:layout_marginTop="30dp"/>
+                    android:text="@string/mean_corpuscular_hemoglobin_mch"
+                    tools:ignore="TextSizeCheck" />
 
                 <EditText
                     android:layout_width="60dp"

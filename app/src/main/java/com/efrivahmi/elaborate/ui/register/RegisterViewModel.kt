@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.SignUp
-import com.efrivahmi.elaborate.utils.HelperToast
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val dataSource: DataSource) : ViewModel() {

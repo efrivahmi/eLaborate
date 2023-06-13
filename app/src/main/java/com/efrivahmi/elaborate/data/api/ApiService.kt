@@ -5,6 +5,8 @@ import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.model.Verify
+import com.efrivahmi.elaborate.data.model.Diagnose
+import com.efrivahmi.elaborate.data.response.DiagnoseResponse
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
@@ -60,8 +62,8 @@ interface ApiService {
     @POST("/{userId}/diagnose")
     fun submitDiagnosticForm(
         @Path("userId") userId: String,
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
+        @Body diagnose: Diagnose
+    ): Call<DiagnoseResponse>
 
     @GET("/{userId}/diagnose")
     fun getDiagnosticResults(

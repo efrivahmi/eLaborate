@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.efrivahmi.elaborate.data.api.ApiService
+import com.efrivahmi.elaborate.data.model.Diagnose
 import com.efrivahmi.elaborate.data.model.ForgotPassword
 import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
@@ -12,6 +13,7 @@ import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.model.Verify
+import com.efrivahmi.elaborate.data.response.DiagnoseResponse
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
@@ -62,6 +64,9 @@ class DataSource private constructor(
 
     private val _resetPasswordResult = MutableLiveData<RpResponse>()
     val resetPasswordResult: LiveData<RpResponse> = _resetPasswordResult
+
+    private val _diagnose = MutableLiveData<DiagnoseResponse>()
+    val diagnose: LiveData<DiagnoseResponse> = _diagnose
 
     fun registerClient(user: UserRegister) {
         _isLoading.value = true
@@ -201,6 +206,29 @@ class DataSource private constructor(
         }
     }
 
+    fun diagnoseClient(userId: String, diagnose: Diagnose) {
+        _isLoading.value = true
+        val client = apiService.submitDiagnosticForm(userId, diagnose)
+        client.enqueue(object : Callback<DiagnoseResponse> {
+            override fun onResponse(call: Call<DiagnoseResponse>, response: Response<DiagnoseResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _diagnose.value = response.body()
+                    _toastText.value = HelperToast(response.body()?.message.toString())
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DiagnoseResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = HelperToast(t.message.toString())
+                Log.e(TAG, "Failed SignUp: ${t.message.toString()}")
+            }
+        })
+    }
+
     suspend fun saveResetToken() {
         pref.getResetToken()
     }
@@ -209,7 +237,7 @@ class DataSource private constructor(
         return pref.getUser().asLiveData()
     }
 
-    suspend fun saveUser(session: UserLogin) {
+    suspend fun saveUser(session: UserModel) {
         pref.saveUser(session)
     }
 
