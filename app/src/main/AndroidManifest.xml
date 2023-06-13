@@ -43,7 +43,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.login.forget.ForgetPasswordActivity" />
         </activity>
-
+        <activity
+            android:name=".ui.main.diagnose.DiagnoseActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.main.result.ResultActivity"
+            android:exported="false"/>
         <activity
             android:name=".ui.register.PrivacyPolicy"
             android:exported="false" />

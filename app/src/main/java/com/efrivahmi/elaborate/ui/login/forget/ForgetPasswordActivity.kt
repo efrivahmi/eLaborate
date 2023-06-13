@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.efrivahmi.elaborate.R
+import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.VerifyCode
 import com.efrivahmi.elaborate.databinding.ActivityForgetPasswordBinding
@@ -34,17 +35,21 @@ class ForgetPasswordActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
         binding.verifyButton.isEnabled = false
 
-        val email = intent.getStringExtra("email")
-        email?.let {
-            binding.emailUser.text = it
+        forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
+            val email = patient.email
+            email.let {
+                binding.emailUser.text = it
+            }
         }
 
         binding.generatedVerifyButton.setOnClickListener {
-            val email = binding.emailUser.text.toString().trim()
-            if (email.isNotEmpty()) {
-                forgetPasswordViewModel.forgotPassword(email)
-            } else {
-                showToastMessage(HelperToast("Email is required"))
+            forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
+                val email = patient.email
+                if (email.isNotEmpty()) {
+                    forgetPasswordViewModel.forgotPassword(email)
+                } else {
+                    showToastMessage(HelperToast("Email is required"))
+                }
             }
         }
 
@@ -84,10 +89,24 @@ class ForgetPasswordActivity : AppCompatActivity() {
         }
 
         binding.verifyButton.setOnClickListener {
+            forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
+                val email = patient.email
             val verificationCode = getVerificationCodeFromEditTexts(verificationCodeEditTexts)
-            val email = binding.emailUser.text.toString().trim()
             if (email.isNotEmpty()) {
                 forgetPasswordViewModel.sendVerificationCode(email, verificationCode)
+                forgetPasswordViewModel.verifyCode.observe(this) { response ->
+                    saveSession(
+                        VerifyCode(
+                            response.resetToken,
+                            response.error,
+                            response.message,
+                            response.userId,
+                            response.username,
+                            email
+                        )
+                    )
+                }
+            }
             }
         }
 
@@ -109,6 +128,10 @@ class ForgetPasswordActivity : AppCompatActivity() {
         forgetPasswordViewModel.forgot.observe(this) { fpResponse ->
             handleForgotPasswordResponse(fpResponse)
         }
+    }
+
+    private fun saveSession(verifyCode: VerifyCode) {
+        forgetPasswordViewModel.saveSession(verifyCode)
     }
 
     private fun showLoading() {
@@ -138,9 +161,9 @@ class ForgetPasswordActivity : AppCompatActivity() {
             itemForgetHandler.postDelayed({
                 try {
                     val intent = Intent(this, EditPasswordActivity::class.java)
-                    intent.putExtra("resetToken", verifyCode.resetToken)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
-                    finishAffinity()
+                    finish()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

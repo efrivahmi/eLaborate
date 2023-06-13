@@ -1,11 +1,9 @@
 package com.efrivahmi.elaborate.ui.login.editpassword
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
@@ -13,10 +11,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.data.response.RpResponse
+import com.efrivahmi.elaborate.data.response.VerifyCode
 import com.efrivahmi.elaborate.databinding.ActivityEditPasswordBinding
 import com.efrivahmi.elaborate.ui.login.LoginActivity
-import com.efrivahmi.elaborate.ui.login.forget.ForgetPasswordActivity
-import com.efrivahmi.elaborate.ui.welcome.WelcomeActivity
 import com.efrivahmi.elaborate.utils.HelperToast
 import com.efrivahmi.elaborate.utils.ViewModelFactory
 
@@ -32,26 +29,21 @@ class EditPasswordActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
-        val resetToken = intent.getStringExtra("resetToken")
-        resetToken.let {
-            binding.resetToken.text = it
-            Log.d(TAG, "Token reset: $resetToken")
-        }
-
         binding.editButton.setOnClickListener {
-            val resetToken = binding.resetToken.text.toString().trim()
-            val newPassword = binding.passwordEditText3.text.toString().trim()
-            if (resetToken.isNotEmpty() && newPassword.length >= 8) {
-                showLoading()
-                viewModel.saveSession(resetToken)
-                viewModel.resetPassword(resetToken, newPassword)
-            } else {
-                Toast.makeText(
-                    this,
-                    "Password must have a\n" +
-                            "minimum of 8 characters",
-                    Toast.LENGTH_SHORT
-                ).show()
+            viewModel.getResetToken().observe(this) { patient: VerifyCode ->
+                val resetToken = patient.resetToken
+                val newPassword = binding.passwordEditText3.text.toString().trim()
+                if (resetToken.isNotEmpty() && newPassword.length >= 8) {
+                    showLoading()
+                    viewModel.resetPassword(resetToken, newPassword)
+                } else {
+                    Toast.makeText(
+                        this,
+                        "Password must have a\n" +
+                                "minimum of 8 characters",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
@@ -106,6 +98,7 @@ class EditPasswordActivity : AppCompatActivity() {
             itemEditHandler.postDelayed({
                 try{
                     startActivity(Intent(this, LoginActivity::class.java))
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     finish()
                 } catch (e: Exception) {
                     e.printStackTrace()

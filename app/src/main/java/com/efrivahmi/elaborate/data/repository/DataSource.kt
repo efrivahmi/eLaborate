@@ -153,12 +153,6 @@ class DataSource private constructor(
                 if (response.isSuccessful && response.body() != null) {
                     _verify.postValue(response.body())
                     _toastText.postValue(HelperToast(response.body()?.message.toString()))
-
-                    response.body()?.resetToken?.let { resetToken ->
-                        CoroutineScope(Dispatchers.IO).launch {
-                            pref.saveResetToken(resetToken)
-                        }
-                    }
                 } else {
                     _toastText.postValue(HelperToast(response.message().toString()))
                     Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
@@ -175,33 +169,30 @@ class DataSource private constructor(
 
     fun resetPassword(request: ResetPassword) {
         _isLoading.postValue(true)
-
         CoroutineScope(Dispatchers.IO).launch {
-            val storedResetToken = pref.getResetToken()
-
-            if (storedResetToken.isNullOrEmpty()) {
-                _isLoading.postValue(false)
-                _toastText.postValue(HelperToast("Token reset tidak tersedia"))
-                return@launch
-            }
-
             try {
-                val resetToken = storedResetToken
-                Log.d(TAG, "Reset token: $resetToken")
+                apiService.resetPassword(request).enqueue(object : Callback<RpResponse> {
+                    override fun onResponse(call: Call<RpResponse>, response: Response<RpResponse>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            _resetPasswordResult.postValue(response.body())
+                            _toastText.postValue(HelperToast(response.body()?.message.toString()))
+                        } else {
+                            _toastText.postValue(HelperToast(response.message().toString()))
+                            Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                        }
+                        _isLoading.postValue(false)
+                    }
 
-                val response = apiService.resetPassword(request).execute()
-                _isLoading.postValue(false)
-
-                if (response.isSuccessful && response.body() != null) {
-                    _resetPasswordResult.postValue(response.body())
-                    _toastText.postValue(HelperToast(response.body()?.message.toString()))
-                } else {
-                    _toastText.postValue(HelperToast(response.message().toString()))
-                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
-                }
-            } catch (e: Exception) {
+                    override fun onFailure(call: Call<RpResponse>, t: Throwable) {
+                        _toastText.postValue(HelperToast(t.message.toString()))
+                        Log.e(TAG, "Failed to reset password: ${t.message.toString()}")
+                        _isLoading.postValue(false)                    }
+                })
+            } catch (e: Exception)
+            {
                 _toastText.postValue(HelperToast(e.message.toString()))
                 Log.e(TAG, "Failed to reset password: ${e.message.toString()}")
+                _isLoading.postValue(false)
             }
         }
     }
@@ -229,11 +220,15 @@ class DataSource private constructor(
         })
     }
 
-    suspend fun saveResetToken() {
-        pref.getResetToken()
+    suspend fun saveResetToken(verifyCode: VerifyCode) {
+        pref.saveResetToken(verifyCode)
     }
 
-    fun getPatient(): LiveData<UserModel> {
+    fun getResetToken(): LiveData<VerifyCode> {
+        return pref.getResetToken().asLiveData()
+    }
+
+    fun getUser(): LiveData<UserModel> {
         return pref.getUser().asLiveData()
     }
 

@@ -1,16 +1,14 @@
 package com.efrivahmi.elaborate.data.preference
 
-import android.content.ContentValues.TAG
-import android.util.Log
+
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.efrivahmi.elaborate.data.model.UserLogin
 import com.efrivahmi.elaborate.data.model.UserModel
+import com.efrivahmi.elaborate.data.response.VerifyCode
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
@@ -68,16 +66,26 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    suspend fun saveResetToken(resetToken: String) {
+    suspend fun saveResetToken(verifyCode: VerifyCode) {
         dataStore.edit { preferences ->
-            preferences[RESET_TOKEN_KEY] = resetToken
-            Log.d(TAG, "Saved reset token: $resetToken")
+            preferences[RESET_TOKEN_KEY] = verifyCode.resetToken
+            preferences[USERID_KEY] = verifyCode.userId
+            preferences[USERNAME_KEY] = verifyCode.username
+            preferences[EMAIL_KEY] = verifyCode.email
         }
     }
 
-    suspend fun getResetToken(): String? {
+    fun getResetToken(): Flow<VerifyCode> {
         return dataStore.data.map { preferences ->
-            preferences[RESET_TOKEN_KEY]
-        }.firstOrNull()
+            VerifyCode(
+                preferences[RESET_TOKEN_KEY] ?: "",
+                false,
+                "Token generated",
+                preferences[USERID_KEY] ?: "",
+                preferences[USERNAME_KEY] ?: "",
+                preferences[EMAIL_KEY] ?: ""
+            )
+        }
     }
+
 }

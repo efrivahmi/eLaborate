@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText2.text.toString().trim()
 
             if (email.isNotEmpty()) {
-                handleForgetEmail(email)
+                handleForgetEmail()
             }
         }
     }
@@ -125,9 +125,9 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.saveSession(session)
     }
 
-    private fun handleForgetEmail(email: String){
+    private fun handleForgetEmail(){
         val intent = Intent(this, ForgetPasswordActivity::class.java)
-        intent.putExtra("email", email)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         finish()
     }

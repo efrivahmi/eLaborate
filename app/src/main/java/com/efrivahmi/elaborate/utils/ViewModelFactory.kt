@@ -8,6 +8,7 @@ import com.efrivahmi.elaborate.ui.login.LoginViewModel
 import com.efrivahmi.elaborate.ui.login.editpassword.EditPasswordViewModel
 import com.efrivahmi.elaborate.ui.login.forget.ForgetPasswordViewModel
 import com.efrivahmi.elaborate.ui.main.MainViewModel
+import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
 import com.efrivahmi.elaborate.ui.register.RegisterViewModel
 import java.lang.IllegalArgumentException
 
@@ -15,10 +16,9 @@ class ViewModelFactory(private val pref: DataSource) : ViewModelProvider.NewInst
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            //handle logika nya di DataSource mas sama sisa view model yang lain belum
-            /*modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(pref) as T
-            }*/
+            }
             modelClass.isAssignableFrom(ForgetPasswordViewModel::class.java) -> {
                 ForgetPasswordViewModel(pref) as T
             }
@@ -30,6 +30,9 @@ class ViewModelFactory(private val pref: DataSource) : ViewModelProvider.NewInst
             }
             modelClass.isAssignableFrom(EditPasswordViewModel::class.java) -> {
                 EditPasswordViewModel(pref) as T
+            }
+            modelClass.isAssignableFrom(DiagnoseViewModel::class.java) -> {
+                DiagnoseViewModel(pref) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
