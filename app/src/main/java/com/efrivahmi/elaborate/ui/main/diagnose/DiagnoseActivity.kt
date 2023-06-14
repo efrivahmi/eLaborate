@@ -1,11 +1,15 @@
 package com.efrivahmi.elaborate.ui.main.diagnose
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.data.model.Diagnose
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
 import com.efrivahmi.elaborate.databinding.ActivityDiagnoseBinding
@@ -17,6 +21,7 @@ class DiagnoseActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactoryMl
     private val diagnoseViewModel: DiagnoseViewModel by viewModels { factory }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiagnoseBinding.inflate(layoutInflater)
@@ -59,11 +64,16 @@ class DiagnoseActivity : AppCompatActivity() {
                     eos = eos,
                     ba = ba
                 )
-
-                diagnoseViewModel.diagnoseClient(diagnose)
-                showToast()
-                showLoading()
-                moveAction()
+                binding.itemEdit.visibility = View.VISIBLE
+                binding.error.text = "Diagnosis is successful, please check the diagnosis result in the result menu."
+                val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+                binding.itemEdit.startAnimation(slideUpAnimation)
+                itemForgetHandler.postDelayed({
+                    diagnoseViewModel.diagnoseClient(diagnose)
+                    showToast()
+                    showLoading()
+                    moveAction()
+                }, 3000)
             } else {
                 Toast.makeText(this, "Please fill in all fields correctly", Toast.LENGTH_SHORT)
                     .show()
@@ -75,7 +85,15 @@ class DiagnoseActivity : AppCompatActivity() {
             val result = "Diagnose Result: Prediction - $prediction"
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
+
+        binding.arrow.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
+
+    @Suppress("DEPRECATION")
+    private val itemForgetHandler = Handler()
 
     private fun moveAction(){
         val intent = Intent(this@DiagnoseActivity, MainActivity::class.java )

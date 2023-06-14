@@ -90,4 +90,10 @@
     <string name="interpretation">Interpretation</string>
     <string name="gender">0 = Male\n1 = Female</string>
     <string name="successDiagnose">Diagnosis is successful, please check the diagnosis result in the result menu.</string>
+    <string name="successEditPassword">Edit profile successfully, please check your profile again</string>
+    <string name="submit">Submit</string>
+    <string name="editprofile">Make sure to edit the profile accordingly by entering the right data</string>
+    <string name="editprof">Edit Profile</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone Number</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import com.efrivahmi.elaborate.data.api.ApiService
 import com.efrivahmi.elaborate.data.model.Diagnose
+import com.efrivahmi.elaborate.data.model.EditProfile
 import com.efrivahmi.elaborate.data.model.ForgotPassword
 import com.efrivahmi.elaborate.data.model.ResetPassword
 import com.efrivahmi.elaborate.data.model.UserLogin
@@ -14,6 +15,7 @@ import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.model.UserRegister
 import com.efrivahmi.elaborate.data.model.Verify
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
+import com.efrivahmi.elaborate.data.response.EditProfileResponse
 import com.efrivahmi.elaborate.data.response.FpResponse
 import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.SignIn
@@ -64,6 +66,9 @@ class DataSource private constructor(
 
     private val _resetPasswordResult = MutableLiveData<RpResponse>()
     val resetPasswordResult: LiveData<RpResponse> = _resetPasswordResult
+
+    private val _editProfile = MutableLiveData<EditProfileResponse>()
+    val editProfileResult: LiveData<EditProfileResponse> = _editProfile
 
     fun registerClient(user: UserRegister) {
         _isLoading.value = true
@@ -192,6 +197,29 @@ class DataSource private constructor(
                 _isLoading.postValue(false)
             }
         }
+    }
+
+    fun uploadEditProfile(userId: String, user: EditProfile) {
+        _isLoading.value = true
+        val client = apiService.editProfile(userId, user)
+        client.enqueue(object : Callback<EditProfileResponse> {
+            override fun onResponse(call: Call<EditProfileResponse>, response: Response<EditProfileResponse>) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _editProfile.value = response.body()
+                    _toastText.value = HelperToast(response.body()?.message.toString())
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<EditProfileResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = HelperToast(t.message.toString())
+                Log.e(TAG, "Failed Edit Profile: ${t.message.toString()}")
+            }
+        })
     }
 
     suspend fun saveResetToken(verifyCode: VerifyCode) {

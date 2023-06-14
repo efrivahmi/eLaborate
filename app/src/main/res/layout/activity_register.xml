@@ -163,7 +163,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cpasswordEditTextLayout"
+        android:id="@+id/addressEditTextLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout" />
 
     <CheckedTextView
         android:id="@+id/agree"
@@ -201,7 +201,7 @@
         android:layout_marginTop="25dp"
         android:text="@string/agree"
         app:layout_constraintStart_toEndOf="@+id/agreement"
-        app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout" />
 
     <TextView
         android:id="@+id/term"
@@ -212,7 +212,7 @@
         android:text="@string/term"
         android:textColor="#FCB208"
         app:layout_constraintStart_toEndOf="@id/agree"
-        app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout"
         tools:ignore="TextContrastCheck" />
 
     <CheckedTextView
@@ -223,7 +223,7 @@
         android:layout_marginTop="25dp"
         android:text="@string/and"
         app:layout_constraintStart_toEndOf="@+id/term"
-        app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout" />
 
     <TextView
         android:id="@+id/privacy"
@@ -234,7 +234,7 @@
         android:text="@string/privacy"
         android:textColor="#FCB208"
         app:layout_constraintStart_toEndOf="@id/and"
-        app:layout_constraintTop_toBottomOf="@id/cpasswordEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@id/addressEditTextLayout"
         tools:ignore="TextContrastCheck" />
 
     <Button
@@ -250,7 +250,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpasswordEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/addressEditTextLayout"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 

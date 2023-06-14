@@ -166,7 +166,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            }, 500)
+            }, 3000)
         } else {
             showToastMessage(HelperToast("Verification code verification failed"))
         }

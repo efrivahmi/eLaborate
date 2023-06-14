@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.efrivahmi.elaborate.data.api.ApiConfig
 import com.efrivahmi.elaborate.data.api.ml.ApiConfigMl
-import com.efrivahmi.elaborate.data.api.ml.DataSourDiagnose
+import com.efrivahmi.elaborate.data.api.ml.DataSourceDiagnose
 import com.efrivahmi.elaborate.data.api.ml.UserPreferenceMl
 import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.repository.DataSource
@@ -20,9 +20,9 @@ object Injection {
         return DataSource.getInstance(preferences, apiService)
     }
 
-    fun labDiagnose(context: Context): DataSourDiagnose {
+    fun labDiagnose(context: Context): DataSourceDiagnose {
         val preferenceMl = UserPreferenceMl.getInstance(context.dataStore)
         val apiServiceMl = ApiConfigMl.getDiagnose()
-        return DataSourDiagnose.getInstance(preferenceMl, apiServiceMl)
+        return DataSourceDiagnose.getInstance(preferenceMl, apiServiceMl)
     }
 }

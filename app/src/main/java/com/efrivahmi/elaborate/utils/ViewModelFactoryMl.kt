@@ -3,11 +3,11 @@ package com.efrivahmi.elaborate.utils
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.efrivahmi.elaborate.data.api.ml.DataSourDiagnose
+import com.efrivahmi.elaborate.data.api.ml.DataSourceDiagnose
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
 import java.lang.IllegalArgumentException
 
-class ViewModelFactoryMl(private val pref: DataSourDiagnose) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactoryMl(private val pref: DataSourceDiagnose) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

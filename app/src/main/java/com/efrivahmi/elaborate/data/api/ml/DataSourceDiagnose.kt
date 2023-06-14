@@ -3,9 +3,7 @@ package com.efrivahmi.elaborate.data.api.ml
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.efrivahmi.elaborate.data.api.ApiService
 import com.efrivahmi.elaborate.data.model.Diagnose
-import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
 import com.efrivahmi.elaborate.utils.HelperToast
@@ -13,20 +11,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DataSourDiagnose private constructor(
+class DataSourceDiagnose private constructor(
     private val pref: UserPreferenceMl,
     private val apiServiceMl: ApiServiceMl
 ) {
     companion object {
         private const val TAG = "DataSourceMl"
         @Volatile
-        private var instance: DataSourDiagnose? = null
+        private var instance: DataSourceDiagnose? = null
         fun getInstance(
             pref: UserPreferenceMl,
             apiServiceMl: ApiServiceMl
-        ): DataSourDiagnose =
+        ): DataSourceDiagnose =
             instance ?: synchronized(this) {
-                instance ?: DataSourDiagnose(pref, apiServiceMl).also { instance = it }
+                instance ?: DataSourceDiagnose(pref, apiServiceMl).also { instance = it }
             }
     }
 
