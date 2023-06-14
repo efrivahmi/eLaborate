@@ -6,20 +6,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.FragmentHomeBinding
+import com.efrivahmi.elaborate.ui.main.MainViewModel
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseActivity
+import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
 import com.efrivahmi.elaborate.ui.main.result.ResultActivity
+import com.efrivahmi.elaborate.utils.ViewModelFactory
+import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
 
 class HomeFragment : Fragment() {
     private  var _binding: FragmentHomeBinding? = null
+    private val factory: ViewModelFactory by lazy {
+        ViewModelFactory.getInstance(requireContext().applicationContext)
+    }
+    private val mainViewModel: MainViewModel by viewModels { factory }
     private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
+
         activityDiagnose()
         activityResult()
+        setupUserViewModel()
+    }
+
+    private fun setupUserViewModel() {
+        mainViewModel.getUser().observe(viewLifecycleOwner) { user ->
+            val username = user?.username
+            if (!username.isNullOrEmpty()) {
+                binding.tvUsername.text = getString(R.string.hello, user.username)
+            }
+        }
     }
 
     private fun activityResult() {
@@ -45,6 +66,11 @@ class HomeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
