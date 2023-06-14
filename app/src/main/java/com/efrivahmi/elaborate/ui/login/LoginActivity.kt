@@ -132,7 +132,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleIncorrectPassword() {
         val password = binding.passwordEditText2.text.toString().trim()
-        val email = binding.emailEditText2.text.toString().trim()
 
         if (password.isNotEmpty()) {
             incorrectPasswordCount++
@@ -152,13 +151,8 @@ class LoginActivity : AppCompatActivity() {
             }
         } else {
             incorrectPasswordCount = 0
-            if (email.isNotEmpty()) {
-                val toastMessage = "Invalid password"
-                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-            } else {
-                val toastMessage = "Invalid password or email"
-                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-            }
+            val toastMessage = "Invalid password or email"
+            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
         }
     }
 

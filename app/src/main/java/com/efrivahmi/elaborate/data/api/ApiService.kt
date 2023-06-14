@@ -59,31 +59,9 @@ interface ApiService {
         @Body requestBody: RequestBody
     ): Call<ResponseBody>
 
-    @POST("/predict")
-    fun submitDiagnosticForm(
-        @Body diagnose: Diagnose
-    ): Call<DiagnoseResponse>
-
-    @GET("/diagnose/{diagnosis_id}")
-    fun getDiagnosticResults(
-        @Query("results") diagnosisId: String
-    ): Call<ResponseBody>
-
-    @POST("/private/{privateKey}/add-doctor")
-    fun addDoctor(
-        @Path("privateKey") privateKey: String,
-        @Body requestBody: RequestBody
-    ): Call<ResponseBody>
-
     @GET("/{userId}/doctor-list")
     fun getDoctorList(
         @Path("userId") userId: String
-    ): Call<ResponseBody>
-
-    @POST("/private/{privateKey}/add-workout")
-    fun addWorkout(
-        @Path("privateKey") privateKey: String,
-        @Body requestBody: RequestBody
     ): Call<ResponseBody>
 
     @GET("/{userId}/workout-list")
