@@ -2,14 +2,14 @@ package com.efrivahmi.elaborate.data.model
 
 data class Diagnose(
     val age: Int,
-    val sex: String,
+    val sex: Int,
     val rbc: Double,
     val hgb: Double,
     val hct: Double,
     val mcv: Double,
     val mch: Double,
     val mchc: Double,
-    val rdwCv: Double,
+    val rdw_cv: Double,
     val wbc: Double,
     val neu: Double,
     val lym: Double,

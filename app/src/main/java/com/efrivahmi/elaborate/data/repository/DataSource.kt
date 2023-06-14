@@ -32,7 +32,7 @@ class DataSource private constructor(
     private val apiService: ApiService
 ) {
     companion object {
-        private const val TAG = "DataSource"
+        const val TAG = "DataSource"
         @Volatile
         private var instance: DataSource? = null
         fun getInstance(
@@ -64,9 +64,6 @@ class DataSource private constructor(
 
     private val _resetPasswordResult = MutableLiveData<RpResponse>()
     val resetPasswordResult: LiveData<RpResponse> = _resetPasswordResult
-
-    private val _diagnose = MutableLiveData<DiagnoseResponse>()
-    val diagnose: LiveData<DiagnoseResponse> = _diagnose
 
     fun registerClient(user: UserRegister) {
         _isLoading.value = true
@@ -195,29 +192,6 @@ class DataSource private constructor(
                 _isLoading.postValue(false)
             }
         }
-    }
-
-    fun diagnoseClient(userId: String, diagnose: Diagnose) {
-        _isLoading.value = true
-        val client = apiService.submitDiagnosticForm(userId, diagnose)
-        client.enqueue(object : Callback<DiagnoseResponse> {
-            override fun onResponse(call: Call<DiagnoseResponse>, response: Response<DiagnoseResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful && response.body() != null) {
-                    _diagnose.value = response.body()
-                    _toastText.value = HelperToast(response.body()?.message.toString())
-                } else {
-                    _toastText.value = HelperToast(response.message().toString())
-                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
-                }
-            }
-
-            override fun onFailure(call: Call<DiagnoseResponse>, t: Throwable) {
-                _isLoading.value = false
-                _toastText.value = HelperToast(t.message.toString())
-                Log.e(TAG, "Failed SignUp: ${t.message.toString()}")
-            }
-        })
     }
 
     suspend fun saveResetToken(verifyCode: VerifyCode) {

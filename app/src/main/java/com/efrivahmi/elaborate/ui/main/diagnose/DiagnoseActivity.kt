@@ -1,20 +1,20 @@
 package com.efrivahmi.elaborate.ui.main.diagnose
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.efrivahmi.elaborate.data.model.Diagnose
-import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
-import com.efrivahmi.elaborate.data.response.DiagnosisData
 import com.efrivahmi.elaborate.databinding.ActivityDiagnoseBinding
-import com.efrivahmi.elaborate.utils.ViewModelFactory
+import com.efrivahmi.elaborate.ui.main.MainActivity
+import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
 
 class DiagnoseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDiagnoseBinding
-    private lateinit var factory: ViewModelFactory
+    private lateinit var factory: ViewModelFactoryMl
     private val diagnoseViewModel: DiagnoseViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +22,11 @@ class DiagnoseActivity : AppCompatActivity() {
         binding = ActivityDiagnoseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        factory = ViewModelFactory.getInstance(this)
+        factory = ViewModelFactoryMl.getInstance(this)
 
         binding.interpretationButton.setOnClickListener {
-            diagnoseViewModel.getPatient().observe(this) { patient: UserModel ->
-                val userId = patient.userId
                 val age = binding.inputage.text.toString().toInt()
-                val sex = binding.inputsex.text.toString()
+                val sex = binding.inputsex.text.toString().toInt()
                 val rbc = binding.inputrbc.text.toString().toDouble()
                 val hgb = binding.inputhgb.text.toString().toDouble()
                 val hct = binding.inputhct.text.toString().toDouble()
@@ -52,7 +50,7 @@ class DiagnoseActivity : AppCompatActivity() {
                     mcv = mcv,
                     mch = mch,
                     mchc = mchc,
-                    rdwCv = rdwCv,
+                    rdw_cv = rdwCv,
                     wbc = wbc,
                     neu = neu,
                     lym = lym,
@@ -61,59 +59,23 @@ class DiagnoseActivity : AppCompatActivity() {
                     ba = ba
                 )
 
-                diagnoseViewModel.diagnoseClient(userId, diagnose)
+                diagnoseViewModel.diagnoseClient(diagnose)
+                showToast()
+                showLoading()
+                moveAction()
             }
-        }
 
         diagnoseViewModel.diagnoseResult.observe(this) { diagnoseResponse: DiagnoseResponse ->
-            if (!diagnoseResponse.error) {
-                val diagnosisData: DiagnosisData? = diagnoseResponse.diagnosisData
-                if (diagnosisData != null) {
-                    val diagnosisId = diagnosisData.diagnosisId
-                    val age = diagnosisData.age
-                    val sex = diagnosisData.sex
-                    val rbc = diagnosisData.rbc
-                    val hgb = diagnosisData.hgb
-                    val hct = diagnosisData.hct
-                    val mcv = diagnosisData.mcv
-                    val mch = diagnosisData.mch
-                    val mchc = diagnosisData.mchc
-                    val rdwCv = diagnosisData.rdwCv
-                    val wbc = diagnosisData.wbc
-                    val neu = diagnosisData.neu
-                    val lym = diagnosisData.lym
-                    val mo = diagnosisData.mo
-                    val eos = diagnosisData.eos
-                    val ba = diagnosisData.ba
-
-                    val result = "Diagnose Result: " +
-                            "Diagnosis ID: $diagnosisId, " +
-                            "Age: $age, " +
-                            "Sex: $sex, " +
-                            "RBC: $rbc, " +
-                            "HGB: $hgb, " +
-                            "HCT: $hct, " +
-                            "MCV: $mcv, " +
-                            "MCH: $mch, " +
-                            "MCHC: $mchc, " +
-                            "RDW-CV: $rdwCv, " +
-                            "WBC: $wbc, " +
-                            "NEU: $neu, " +
-                            "LYM: $lym, " +
-                            "MO: $mo, " +
-                            "EOS: $eos, " +
-                            "BA: $ba"
-
-                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                val errorMessage = "Error: ${diagnoseResponse.message}"
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-            }
+            val prediction = diagnoseResponse.prediction
+            val result = "Diagnose Result: Prediction - $prediction"
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
         }
+    }
 
-        showLoading()
-        showToast()
+    private fun moveAction(){
+        val intent = Intent(this@DiagnoseActivity, MainActivity::class.java )
+        startActivity(intent)
+        finish()
     }
 
     private fun showLoading() {

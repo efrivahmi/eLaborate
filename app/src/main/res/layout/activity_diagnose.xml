@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginStart="15dp"
-    android:layout_marginTop="20dp"
+
     tools:context=".ui.main.diagnose.DiagnoseActivity">
 
     <ImageView
@@ -35,6 +34,7 @@
         android:gravity="center_horizontal"
         android:text="@string/description_diagnosis"
         tools:ignore="TextSizeCheck" />
+
     <ProgressBar
         android:id="@+id/progressBar6"
         style="@style/progressBar"
@@ -46,6 +46,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.406"
         tools:visibility="gone" />
+
     <ScrollView
         android:id="@+id/content_diagnosis"
         android:layout_width="match_parent"
@@ -78,7 +79,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/light_yellow"
                     android:gravity="center"
-                    android:hint="Masukkan umur"
+                    android:hint="Masukan umur"
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:minHeight="48dp"
@@ -89,7 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/years" />
@@ -124,6 +125,14 @@
                     android:textColorHint="#795548"
                     tools:ignore="HardcodedText" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/gender" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -137,7 +146,8 @@
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/red_blood_cell_count"
                     tools:ignore="TextSizeCheck" />
@@ -146,8 +156,8 @@
                     android:id="@+id/inputrbc"
                     android:layout_width="60dp"
                     android:layout_height="48dp"
-                    android:layout_marginStart="90dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="75dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
                     android:height="40dp"
                     android:background="@color/light_yellow"
@@ -161,7 +171,7 @@
                 <TextView
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/unit_of_rbc"
                     tools:ignore="TextSizeCheck" />
@@ -179,8 +189,8 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/hemoglobin_hgb"
                     tools:ignore="TextSizeCheck" />
 
@@ -221,8 +231,8 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"                    android:fontFamily="@font/poppins_regular"
                     android:text="@string/hematocrit_hct"
                     tools:ignore="TextSizeCheck" />
 
@@ -262,7 +272,8 @@
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
                     android:text="@string/mean_corpuscular_volume_mcv"
                     tools:ignore="TextSizeCheck" />
 
@@ -303,7 +314,8 @@
                 <TextView
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/mean_corpuscular_hemoglobin_mch"
                     tools:ignore="TextSizeCheck" />

@@ -88,4 +88,5 @@
     <string name="arrow">Go</string>
     <string name="logout">Log Out</string>
     <string name="interpretation">Interpretation</string>
+    <string name="gender">1 = Male\n2 = Female</string>
 </resources>

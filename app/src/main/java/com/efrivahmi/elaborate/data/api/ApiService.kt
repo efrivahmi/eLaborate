@@ -59,15 +59,13 @@ interface ApiService {
         @Body requestBody: RequestBody
     ): Call<ResponseBody>
 
-    @POST("/{userId}/diagnose")
+    @POST("/predict")
     fun submitDiagnosticForm(
-        @Path("userId") userId: String,
         @Body diagnose: Diagnose
     ): Call<DiagnoseResponse>
 
-    @GET("/{userId}/diagnose")
+    @GET("/diagnose/{diagnosis_id}")
     fun getDiagnosticResults(
-        @Path("userId") userId: String,
         @Query("results") diagnosisId: String
     ): Call<ResponseBody>
 
