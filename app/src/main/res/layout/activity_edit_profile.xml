@@ -139,7 +139,7 @@
         app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.efrivahmi.elaborate.ui.custom.InputPassword
+        <com.efrivahmi.elaborate.ui.custom.Email
             android:id="@+id/phoneEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

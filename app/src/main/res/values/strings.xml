@@ -96,4 +96,6 @@
     <string name="editprof">Edit Profile</string>
     <string name="address">Address</string>
     <string name="phone">Phone Number</string>
+    <string name="under_construction">Under Construction</string>
+    <string name="we_are_currently_working_on_this_page">We are currently working on this page</string>
 </resources>

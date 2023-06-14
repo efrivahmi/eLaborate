@@ -75,7 +75,7 @@ class EditProfileActivity : AppCompatActivity() {
                 if (!response.error) {
                     binding.itemEdit.visibility = View.VISIBLE
                     binding.error.text =
-                        "Successfully create an account, please sign in to access the application."
+                        "Edit profile successfully, please check your profile again"
                     val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
                     binding.itemEdit.startAnimation(slideUpAnimation)
                     itemEditHandler.postDelayed({

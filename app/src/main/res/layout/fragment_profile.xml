@@ -23,7 +23,7 @@
         tools:text="John Doe"
         android:textSize="18sp"
         android:layout_toEndOf="@id/profile_image"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/black"
         tools:ignore="RelativeOverlap" />
@@ -36,7 +36,7 @@
         android:textSize="14sp"
         android:layout_toEndOf="@id/profile_image"
         android:layout_below="@id/username"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:textColor="@color/black"/>
 
     <TextView
@@ -94,7 +94,7 @@
             android:id="@+id/arrow1"
             android:layout_width="41dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="160dp"
+            android:layout_marginStart="140dp"
             android:contentDescription="@string/arrow"
             android:gravity="center"
             android:src="@drawable/go_arrow"
@@ -131,7 +131,7 @@
             android:id="@+id/arrow2"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="238dp"
+            android:layout_marginStart="218dp"
             android:contentDescription="@string/arrow"
             android:gravity="center"
             android:src="@drawable/go_arrow"
