@@ -35,23 +35,22 @@ class ForgetPasswordActivity : AppCompatActivity() {
         factory = ViewModelFactory.getInstance(this)
         binding.verifyButton.isEnabled = false
 
-        forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
-            val email = patient.email
-            email.let {
-                binding.emailUser.text = it
-            }
+
+        val intent = intent
+        val email = intent.getStringExtra("email")
+        email.let {
+            binding.emailUser.text = it
         }
 
         binding.generatedVerifyButton.setOnClickListener {
-            forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
-                val email = patient.email
-                if (email.isNotEmpty()) {
-                    forgetPasswordViewModel.forgotPassword(email)
-                } else {
-                    showToastMessage(HelperToast("Email is required"))
-                }
+            val email = binding.emailUser.text.toString().trim()
+            if (email.isNotEmpty()) {
+                forgetPasswordViewModel.forgotPassword(email)
+            } else {
+                showToastMessage(HelperToast("Email is required"))
             }
         }
+
 
         val verificationCodeEditTexts = listOf(
             binding.box1,

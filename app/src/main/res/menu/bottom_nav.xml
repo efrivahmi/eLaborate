@@ -3,9 +3,5 @@
     <item
         android:title="@string/home"
         android:id="@+id/home"
-        android:icon="@drawable/ic_outline_home_32"/>
-    <item
-        android:title="@string/profile"
-        android:id="@+id/profile"
-        android:icon="@drawable/ic_person_outline_32"/>
+        android:icon="@drawable/ic_outline_home_32" />
 </menu>

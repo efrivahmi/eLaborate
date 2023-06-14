@@ -88,5 +88,6 @@
     <string name="arrow">Go</string>
     <string name="logout">Log Out</string>
     <string name="interpretation">Interpretation</string>
-    <string name="gender">1 = Male\n2 = Female</string>
+    <string name="gender">0 = Male\n1 = Female</string>
+    <string name="successDiagnose">Diagnosis is successful, please check the diagnosis result in the result menu.</string>
 </resources>

@@ -484,7 +484,7 @@
                     android:height="40dp"
                     android:background="@color/light_yellow"
                     android:gravity="center"
-                    android:hint="Neu Gra"
+                    android:hint="Neu"
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:textColorHint="#795548"
@@ -524,7 +524,7 @@
                     android:height="40dp"
                     android:background="@color/light_yellow"
                     android:gravity="center"
-                    android:hint="Lymphs"
+                    android:hint="LYM"
                     android:importantForAutofill="no"
                     android:inputType="numberDecimal"
                     android:textColorHint="#795548"
@@ -659,18 +659,6 @@
 
             </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progressBar6"
-                style="@style/progressBar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_gravity="center"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.406"
-                tools:visibility="gone" />
-
             <Button
                 android:id="@+id/interpretationButton"
                 android:layout_width="353dp"
@@ -689,7 +677,56 @@
                 app:layout_constraintVertical_bias="0.183"
                 tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
+            <ProgressBar
+                android:id="@+id/progressBar6"
+                style="@style/progressBar"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.86"
+                tools:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/item_edit"
+                android:layout_width="match_parent"
+                android:layout_height="403dp"
+                android:background="@drawable/button"
+                android:orientation="vertical"
+                android:padding="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints,UseCompoundDrawables"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="40dp"
+                    android:contentDescription="@string/img_user"
+                    android:src="@drawable/item_register"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/error"
+                    android:layout_width="378dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="60dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textAlignment="center"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="20sp"
+                    tools:ignore="TextSizeCheck"
+                    tools:text="@string/successDiagnose" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </LinearLayout>

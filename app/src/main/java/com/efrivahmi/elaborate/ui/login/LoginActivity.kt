@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText2.text.toString().trim()
 
             if (email.isNotEmpty()) {
-                handleForgetEmail()
+                handleForgetEmail(email)
             }
         }
     }
@@ -124,14 +124,16 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.saveSession(session)
     }
 
-    private fun handleForgetEmail(){
+    private fun handleForgetEmail(email: String){
         val intent = Intent(this, ForgetPasswordActivity::class.java)
+        intent.putExtra("email", email)
         startActivity(intent)
         finish()
     }
 
     private fun handleIncorrectPassword() {
         val password = binding.passwordEditText2.text.toString().trim()
+        val email = binding.emailEditText2.text.toString().trim()
 
         if (password.isNotEmpty()) {
             incorrectPasswordCount++
@@ -151,8 +153,13 @@ class LoginActivity : AppCompatActivity() {
             }
         } else {
             incorrectPasswordCount = 0
-            val toastMessage = "Invalid password or email"
-            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            if (email.isNotEmpty()) {
+                val toastMessage = "Invalid password"
+                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            } else {
+                val toastMessage = "Invalid password or email"
+                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

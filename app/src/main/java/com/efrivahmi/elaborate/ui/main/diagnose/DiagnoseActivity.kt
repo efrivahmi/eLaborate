@@ -25,6 +25,7 @@ class DiagnoseActivity : AppCompatActivity() {
         factory = ViewModelFactoryMl.getInstance(this)
 
         binding.interpretationButton.setOnClickListener {
+            if (isDataValid()) {
                 val age = binding.inputage.text.toString().toInt()
                 val sex = binding.inputsex.text.toString().toInt()
                 val rbc = binding.inputrbc.text.toString().toDouble()
@@ -63,7 +64,11 @@ class DiagnoseActivity : AppCompatActivity() {
                 showToast()
                 showLoading()
                 moveAction()
+            } else {
+                Toast.makeText(this, "Please fill in all fields correctly", Toast.LENGTH_SHORT)
+                    .show()
             }
+        }
 
         diagnoseViewModel.diagnoseResult.observe(this) { diagnoseResponse: DiagnoseResponse ->
             val prediction = diagnoseResponse.prediction
@@ -92,5 +97,28 @@ class DiagnoseActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun isDataValid(): Boolean {
+        val age = binding.inputage.text.toString()
+        val sex = binding.inputsex.text.toString()
+        val rbc = binding.inputrbc.text.toString()
+        val hgb = binding.inputhgb.text.toString()
+        val hct = binding.inputhct.text.toString()
+        val mcv = binding.inputmcv.text.toString()
+        val mch = binding.inputmch.text.toString()
+        val mchc = binding.inputmchc.text.toString()
+        val rdwCv = binding.inputrdcv.text.toString()
+        val wbc = binding.inputwbc.text.toString()
+        val neu = binding.inputneugra.text.toString()
+        val lym = binding.inputlymphs.text.toString()
+        val mo = binding.inputmo.text.toString()
+        val eos = binding.inputeos.text.toString()
+        val ba = binding.inputbasophils.text.toString()
+
+        return age.isNotEmpty() && sex.isNotEmpty() && rbc.isNotEmpty() && hgb.isNotEmpty() &&
+                hct.isNotEmpty() && mcv.isNotEmpty() && mch.isNotEmpty() && mchc.isNotEmpty() &&
+                rdwCv.isNotEmpty() && wbc.isNotEmpty() && neu.isNotEmpty() && lym.isNotEmpty() &&
+                mo.isNotEmpty() && eos.isNotEmpty() && ba.isNotEmpty()
     }
 }

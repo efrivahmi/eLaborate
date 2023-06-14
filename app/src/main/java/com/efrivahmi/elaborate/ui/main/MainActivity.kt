@@ -11,18 +11,37 @@ import com.efrivahmi.elaborate.ui.main.profile.ProfileFragment
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var isItem1Selected = false
+    private var isItem2Selected = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(HomeFragment())
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId) {
-                R.id.home -> replaceFragment(HomeFragment())
-                R.id.profile -> replaceFragment(ProfileFragment())
-                else -> {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    if (!isItem1Selected) {
+                        isItem1Selected = true
+                        isItem2Selected = false
+                        replaceFragment(HomeFragment())
+                    }
+                }
+            }
 
+            true
+        }
+
+        binding.bottomNavigationView2.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.profile -> {
+                    if (!isItem2Selected) {
+                        isItem1Selected = false
+                        isItem2Selected = true
+                        replaceFragment(ProfileFragment())
+                    }
                 }
             }
 
