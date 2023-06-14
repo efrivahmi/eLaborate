@@ -131,6 +131,7 @@
 
 
                 <ImageView
+                    android:id="@+id/iv_doctor"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
