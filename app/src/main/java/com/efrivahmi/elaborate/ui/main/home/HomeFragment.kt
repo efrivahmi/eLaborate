@@ -14,6 +14,7 @@ import com.efrivahmi.elaborate.ui.main.MainViewModel
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseActivity
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
 import com.efrivahmi.elaborate.ui.main.result.ResultActivity
+import com.efrivahmi.elaborate.ui.underdevelop.UnderDevelopmentActivity
 import com.efrivahmi.elaborate.utils.ViewModelFactory
 import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
 
@@ -31,7 +32,37 @@ class HomeFragment : Fragment() {
 
         activityDiagnose()
         activityResult()
+        activityMedicine()
+        activityWorkout()
+        activityDoctor()
         setupUserViewModel()
+    }
+
+    private fun activityDoctor() {
+        binding.ivDoctor.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
+    }
+
+    private fun activityWorkout() {
+        binding.ivWorkout.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
+    }
+
+    private fun activityMedicine() {
+        binding.ivMedicine.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
     }
 
     private fun setupUserViewModel() {

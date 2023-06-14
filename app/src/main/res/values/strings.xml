@@ -90,4 +90,6 @@
     <string name="interpretation">Interpretation</string>
     <string name="gender">0 = Male\n1 = Female</string>
     <string name="successDiagnose">Diagnosis is successful, please check the diagnosis result in the result menu.</string>
+    <string name="under_construction">Under Construction</string>
+    <string name="we_are_currently_working_on_this_page">We are currently working on this page</string>
 </resources>
