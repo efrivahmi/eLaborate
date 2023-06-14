@@ -19,4 +19,10 @@
     </style>
 
     <style name="Input"> name="inputText" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
+    <style name="CustomBottomNavigationIndicator" parent="Widget.MaterialComponents.BottomNavigationView">
+        <!-- Definisikan atribut-atribut khusus yang ingin Anda gunakan -->
+        <item name="backgroundTint">@color/yellow</item>
+        <item name="android:state_checkable">true</item>
+    </style>
+
 </resources>
