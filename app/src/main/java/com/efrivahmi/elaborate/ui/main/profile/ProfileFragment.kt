@@ -11,6 +11,7 @@ import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.FragmentProfileBinding
 import com.efrivahmi.elaborate.ui.main.MainViewModel
 import com.efrivahmi.elaborate.ui.main.profile.edit.EditProfileActivity
+import com.efrivahmi.elaborate.ui.underdevelop.UnderDevelopmentActivity
 import com.efrivahmi.elaborate.utils.ViewModelFactory
 
 class ProfileFragment : Fragment() {
@@ -31,8 +32,38 @@ class ProfileFragment : Fragment() {
                 it.startActivity(intent)
             }
         }
-        activityResult()
+        activityTranscation()
+        activityReviews()
+        activityLanguage()
+        activityLogout()
         setupUserViewModel()
+    }
+
+    private fun activityLanguage() {
+        binding.ivLanguageSetting.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
+    }
+
+    private fun activityReviews() {
+        binding.ivReviews.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
+    }
+
+    private fun activityTranscation() {
+        binding.ivTransactionsList.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, UnderDevelopmentActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
     }
 
     private fun setupUserViewModel() {
@@ -46,8 +77,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun activityResult(): Boolean {
-        binding.arrow2.setOnClickListener {
+    private fun activityLogout(): Boolean {
+        binding.layoutLogout.setOnClickListener {
                 mainViewModel.logout()
         }
         return true
