@@ -1,10 +1,14 @@
 package com.efrivahmi.elaborate.data.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class DiagnoseResponse(
     val diagnosisId: String,
     val input_data: InputData,
     val prediction: Int
 )
+@Parcelize
 data class InputData(
     val age: Int,
     val rdw_cv: Double,
@@ -21,4 +25,4 @@ data class InputData(
     val mch: Double,
     val eos: Double,
     val mcv: Double
-)
+): Parcelable

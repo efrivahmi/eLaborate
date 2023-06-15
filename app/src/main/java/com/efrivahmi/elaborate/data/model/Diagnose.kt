@@ -1,5 +1,9 @@
 package com.efrivahmi.elaborate.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Diagnose(
     val age: Int,
     val sex: Int,
@@ -16,4 +20,4 @@ data class Diagnose(
     val mo: Double,
     val eos: Double,
     val ba: Double
-)
+): Parcelable
