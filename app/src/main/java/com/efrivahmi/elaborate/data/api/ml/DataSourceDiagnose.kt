@@ -41,6 +41,9 @@ class DataSourceDiagnose private constructor(
     private val _diagnose = MutableLiveData<DResponse>()
     val diagnose: LiveData<DResponse> = _diagnose
 
+    private val _resultDiagnose = MutableLiveData<DiagnoseResponse>()
+    val diagnoseResult: LiveData<DiagnoseResponse> = _resultDiagnose
+
     fun diagnoseClient(userId: String, diagnose: Diagnose) {
         _isLoading.value = true
         val client = apiServiceMl.submitDiagnosticForm(userId, diagnose)
@@ -64,6 +67,32 @@ class DataSourceDiagnose private constructor(
         })
     }
 
+    fun getDiagnosticResults(userId: String, diagnosisId: String) {
+        _isLoading.value = true
+
+        val client = apiServiceMl.getDiagnosticResults(userId, diagnosisId)
+        client.enqueue(object : Callback<DiagnoseResponse> {
+            override fun onResponse(
+                call: Call<DiagnoseResponse>,
+                response: Response<DiagnoseResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _resultDiagnose.value = response.body()
+                    _toastText.value = HelperToast("Diagnosis successful")
+                } else {
+                    _toastText.value = HelperToast(response.message().toString())
+                    Log.e(DataSource.TAG, "on Failure!: ${response.message()}, ${response.body()?.toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<DiagnoseResponse>, t: Throwable) {
+                _isLoading.value = false
+                _toastText.value = t.localizedMessage?.let { HelperToast(it) }
+                Log.e(TAG, "Failed Get Result: ${t.localizedMessage}")
+            }
+        })
+    }
 
     fun getUser(): LiveData<UserModel> {
         return pref.getUser().asLiveData()
