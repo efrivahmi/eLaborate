@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.efrivahmi.elaborate.data.model.Diagnose
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
 import com.efrivahmi.elaborate.databinding.ActivityResultBinding
 import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
@@ -23,14 +22,13 @@ class ResultActivity : AppCompatActivity() {
         factory = ViewModelFactoryMl.getInstance(this)
 
         resultViewModel.diagnoseResult.observe(this) { diagnoseResponse ->
-            val dataDiagnosisLiveData = resultViewModel.getDataDiagnosis()
-            dataDiagnosisLiveData.observe(this) { diagnosis ->
-                if (diagnosis != null) {
-                    useDiagnosisData(diagnosis)
+            if (diagnoseResponse != null) {
+                    useDiagnosisData(diagnoseResponse)
                 }
-            }
             handleDiagnoseResponse(diagnoseResponse)
-        }
+            }
+
+
 
         val diagnosisIdLiveData = resultViewModel.getDiagnosisId()
         val userIdLiveData = resultViewModel.getUserId()
@@ -55,26 +53,29 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun handleDiagnoseResponse(diagnoseResponse: DiagnoseResponse) {
-        val diagnosis = diagnoseResponse.input_data
-
+        val diagnosisId = diagnoseResponse.diagnosisId
+        val inputData = diagnoseResponse.input_data
+        val prediction = diagnoseResponse.prediction
+        val message = "Diagnosis ID: $diagnosisId\nInput Data: $inputData\nPrediction: $prediction"
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun useDiagnosisData(diagnosis: Diagnose) {
-        binding.tvNeuGraResult.text = diagnosis.neu.toString()
-        binding.tvLymphsResult.text = diagnosis.lym.toString()
-        binding.tvMonocytesResult.text = diagnosis.mo.toString()
-        binding.tvEosResult.text = diagnosis.eos.toString()
-        binding.tvBasosResult.text = diagnosis.ba.toString()
-        binding.tvAgePatient.text = diagnosis.age.toString()
-        binding.tvSexPatient.text = diagnosis.sex.toString()
-        binding.tvRbcResult.text = diagnosis.rbc.toString()
-        binding.tvHgbResult.text = diagnosis.hgb.toString()
-        binding.tvHctResult.text = diagnosis.hct.toString()
-        binding.tvMcvResult.text = diagnosis.mcv.toString()
-        binding.tvMchResult.text = diagnosis.mch.toString()
-        binding.tvMchcResult.text = diagnosis.mchc.toString()
-        binding.tvRdwCvResult.text = diagnosis.rdw_cv.toString()
-        binding.tvWbcResult.text = diagnosis.wbc.toString()
+    private fun useDiagnosisData(diagnosis: DiagnoseResponse) {
+        binding.tvNeuGraResult.text = diagnosis.input_data.neu.toString()
+        binding.tvLymphsResult.text = diagnosis.input_data.lym.toString()
+        binding.tvMonocytesResult.text = diagnosis.input_data.mo.toString()
+        binding.tvEosResult.text = diagnosis.input_data.eos.toString()
+        binding.tvBasosResult.text = diagnosis.input_data.ba.toString()
+        binding.tvAgePatient.text = diagnosis.input_data.age.toString()
+        binding.tvSexPatient.text = diagnosis.input_data.sex.toString()
+        binding.tvRbcResult.text = diagnosis.input_data.rbc.toString()
+        binding.tvHgbResult.text = diagnosis.input_data.hgb.toString()
+        binding.tvHctResult.text = diagnosis.input_data.hct.toString()
+        binding.tvMcvResult.text = diagnosis.input_data.mcv.toString()
+        binding.tvMchResult.text = diagnosis.input_data.mch.toString()
+        binding.tvMchcResult.text = diagnosis.input_data.mchc.toString()
+        binding.tvRdwCvResult.text = diagnosis.input_data.rdw_cv.toString()
+        binding.tvWbcResult.text = diagnosis.input_data.wbc.toString()
     }
 
     private fun showToast() {

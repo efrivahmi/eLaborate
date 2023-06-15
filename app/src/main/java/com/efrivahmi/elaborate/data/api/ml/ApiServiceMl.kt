@@ -18,7 +18,7 @@ interface ApiServiceMl {
         @Body diagnose: Diagnose
     ): Call<DResponse>
 
-    @GET("/{userId}/diagnose/{diagnosisId}")
+    @GET("/{userId}/diagnosis/{diagnosisId}")
     fun getDiagnosticResults(
         @Path("userId") userId: String,
         @Path("diagnosisId") diagnosisId: String

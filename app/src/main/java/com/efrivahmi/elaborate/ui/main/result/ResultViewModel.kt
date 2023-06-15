@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.efrivahmi.elaborate.data.api.ml.DataSourceDiagnose
-import com.efrivahmi.elaborate.data.model.Diagnose
 import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.response.DResponse
 import com.efrivahmi.elaborate.data.response.DiagnoseResponse
@@ -27,10 +26,10 @@ class ResultViewModel(private val dataSourceMl: DataSourceDiagnose) : ViewModel(
     }
 
     fun getDiagnosisId(): LiveData<DResponse> {
-        return dataSourceMl.getDiagnose()
+        return dataSourceMl.getDiagnoseId()
     }
 
-    fun getDataDiagnosis(): LiveData<Diagnose> {
+    /*fun getDataDiagnosis(): LiveData<Diagnose> {
         return dataSourceMl.getSavedDiagnose()
-    }
+    }*/
 }
