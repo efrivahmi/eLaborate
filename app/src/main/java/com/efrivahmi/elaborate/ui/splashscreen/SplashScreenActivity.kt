@@ -16,7 +16,7 @@ import com.efrivahmi.elaborate.databinding.ActivitySplashScreenBinding
 import com.efrivahmi.elaborate.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
-    private val DELAY: Long = 6000
+    private val splashDelay: Long = 4000
     private lateinit var binding: ActivitySplashScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this@SplashScreenActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, DELAY)
+        }, splashDelay)
 
         setupView()
         playAnimation()
