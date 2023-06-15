@@ -34,8 +34,8 @@ class RegisterActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
-        passwordEditText = findViewById(R.id.addressEditText)
-        confirmPasswordEditText = findViewById(R.id.phoneEditText)
+        passwordEditText = findViewById(R.id.cpasswordEditText)
+        confirmPasswordEditText = findViewById(R.id.passwordEditText)
         agreementCheckBox = findViewById(R.id.agreement)
         passwordEditText.setConfirmPasswordEditText(confirmPasswordEditText)
 

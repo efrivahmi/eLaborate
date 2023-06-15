@@ -46,16 +46,6 @@ interface ApiService {
         @Body request: ResetPassword
     ): Call<RpResponse>
 
-    @GET("/{userId}")
-    fun getHome(
-        @Path("userId") userId: String
-    ): Call<ResponseBody>
-
-    @GET("/{userId}/profile")
-    fun getProfile(
-        @Path("userId") userId: String
-    ): Call<ResponseBody>
-
     @POST("/{userId}/profile/edit")
     fun editProfile(
         @Path("userId") userId: String,

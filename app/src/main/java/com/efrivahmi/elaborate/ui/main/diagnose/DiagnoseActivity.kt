@@ -11,7 +11,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.data.model.Diagnose
-import com.efrivahmi.elaborate.data.response.DiagnoseResponse
+import com.efrivahmi.elaborate.data.model.UserModel
+import com.efrivahmi.elaborate.data.response.DResponse
 import com.efrivahmi.elaborate.databinding.ActivityDiagnoseBinding
 import com.efrivahmi.elaborate.ui.main.MainActivity
 import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
@@ -21,7 +22,7 @@ class DiagnoseActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactoryMl
     private val diagnoseViewModel: DiagnoseViewModel by viewModels { factory }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiagnoseBinding.inflate(layoutInflater)
@@ -30,60 +31,71 @@ class DiagnoseActivity : AppCompatActivity() {
         factory = ViewModelFactoryMl.getInstance(this)
 
         binding.interpretationButton.setOnClickListener {
-            if (isDataValid()) {
-                val age = binding.inputage.text.toString().toInt()
-                val sex = binding.inputsex.text.toString().toInt()
-                val rbc = binding.inputrbc.text.toString().toDouble()
-                val hgb = binding.inputhgb.text.toString().toDouble()
-                val hct = binding.inputhct.text.toString().toDouble()
-                val mcv = binding.inputmcv.text.toString().toDouble()
-                val mch = binding.inputmch.text.toString().toDouble()
-                val mchc = binding.inputmchc.text.toString().toDouble()
-                val rdwCv = binding.inputrdcv.text.toString().toDouble()
-                val wbc = binding.inputwbc.text.toString().toDouble()
-                val neu = binding.inputneugra.text.toString().toDouble()
-                val lym = binding.inputlymphs.text.toString().toDouble()
-                val mo = binding.inputmo.text.toString().toDouble()
-                val eos = binding.inputeos.text.toString().toDouble()
-                val ba = binding.inputbasophils.text.toString().toDouble()
+            diagnoseViewModel.getPatient().observe(this) { patient: UserModel ->
+                if (isDataValid()) {
+                    val userId = patient.userId
+                    val age = binding.inputage.text.toString().toInt()
+                    val sex = binding.inputsex.text.toString().toInt()
+                    val rbc = binding.inputrbc.text.toString().toDouble()
+                    val hgb = binding.inputhgb.text.toString().toDouble()
+                    val hct = binding.inputhct.text.toString().toDouble()
+                    val mcv = binding.inputmcv.text.toString().toDouble()
+                    val mch = binding.inputmch.text.toString().toDouble()
+                    val mchc = binding.inputmchc.text.toString().toDouble()
+                    val rdwCv = binding.inputrdcv.text.toString().toDouble()
+                    val wbc = binding.inputwbc.text.toString().toDouble()
+                    val neu = binding.inputneugra.text.toString().toDouble()
+                    val lym = binding.inputlymphs.text.toString().toDouble()
+                    val mo = binding.inputmo.text.toString().toDouble()
+                    val eos = binding.inputeos.text.toString().toDouble()
+                    val ba = binding.inputbasophils.text.toString().toDouble()
 
-                val diagnose = Diagnose(
-                    age = age,
-                    sex = sex,
-                    rbc = rbc,
-                    hgb = hgb,
-                    hct = hct,
-                    mcv = mcv,
-                    mch = mch,
-                    mchc = mchc,
-                    rdw_cv = rdwCv,
-                    wbc = wbc,
-                    neu = neu,
-                    lym = lym,
-                    mo = mo,
-                    eos = eos,
-                    ba = ba
-                )
-                binding.itemEdit.visibility = View.VISIBLE
-                binding.error.text = "Diagnosis is successful, please check the diagnosis result in the result menu."
-                val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-                binding.itemEdit.startAnimation(slideUpAnimation)
-                itemForgetHandler.postDelayed({
-                    diagnoseViewModel.diagnoseClient(diagnose)
-                    showToast()
-                    showLoading()
-                    moveAction()
-                }, 3000)
-            } else {
-                Toast.makeText(this, "Please fill in all fields correctly", Toast.LENGTH_SHORT)
-                    .show()
+                    val diagnose = Diagnose(
+                        age = age,
+                        sex = sex,
+                        rbc = rbc,
+                        hgb = hgb,
+                        hct = hct,
+                        mcv = mcv,
+                        mch = mch,
+                        mchc = mchc,
+                        rdw_cv = rdwCv,
+                        wbc = wbc,
+                        neu = neu,
+                        lym = lym,
+                        mo = mo,
+                        eos = eos,
+                        ba = ba
+                    )
+                    binding.itemEdit.visibility = View.VISIBLE
+                    binding.error.text =
+                        "Diagnosis is successful, please check the diagnosis result in the result menu."
+                    val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+                    binding.itemEdit.startAnimation(slideUpAnimation)
+                    itemForgetHandler.postDelayed({
+                        diagnoseViewModel.saveDiagnoseRequest(diagnose)
+                        diagnoseViewModel.diagnoseClient(userId, diagnose)
+                        showToast()
+                        showLoading()
+                        moveAction()
+                    }, 3000)
+                } else {
+                    Toast.makeText(this, "Please fill in all fields correctly", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
 
-        diagnoseViewModel.diagnoseResult.observe(this) { diagnoseResponse: DiagnoseResponse ->
-            val prediction = diagnoseResponse.prediction
-            val result = "Diagnose Result: Prediction - $prediction"
-            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+        diagnoseViewModel.diagnoseResult.observe(this) { dResponse: DResponse ->
+            diagnoseViewModel.saveDiagnose(dResponse)
+            val prediction = dResponse.prediction
+            val diagnosisId = dResponse.diagnosisId
+
+            val result = "DResponse Result: " +
+                    "Diagnosis ID: $diagnosisId, " +
+                    "Prediction: $prediction"
+
+            Toast.makeText(this, result,Toast.LENGTH_SHORT).show()
         }
 
         binding.arrow.setOnClickListener {

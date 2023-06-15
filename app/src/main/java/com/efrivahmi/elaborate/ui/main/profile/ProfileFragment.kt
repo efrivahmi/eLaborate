@@ -2,10 +2,10 @@ package com.efrivahmi.elaborate.ui.main.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.FragmentProfileBinding
@@ -31,6 +31,7 @@ class ProfileFragment : Fragment() {
                 it.startActivity(intent)
             }
         }
+        activityResult()
         setupUserViewModel()
     }
 
@@ -43,6 +44,13 @@ class ProfileFragment : Fragment() {
                 binding.email.text = user.email
             }
         }
+    }
+
+    private fun activityResult(): Boolean {
+        binding.arrow2.setOnClickListener {
+                mainViewModel.logout()
+        }
+        return true
     }
 
     override fun onCreateView(

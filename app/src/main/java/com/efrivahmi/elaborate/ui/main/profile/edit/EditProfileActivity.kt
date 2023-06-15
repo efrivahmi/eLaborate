@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.ActivityEditProfileBinding
+import com.efrivahmi.elaborate.ui.login.LoginActivity
 import com.efrivahmi.elaborate.ui.main.MainActivity
 import com.efrivahmi.elaborate.ui.main.MainViewModel
 import com.efrivahmi.elaborate.ui.main.profile.ProfileFragment
@@ -47,7 +48,7 @@ class EditProfileActivity : AppCompatActivity() {
             } else if (addressUser.length < 20) {
                 Toast.makeText(
                     this,
-                    "You have input an\nFull Address",
+                    "You have input an Full Address",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -58,7 +59,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.arrow.setOnClickListener {
-            val intent = Intent(this, ProfileFragment::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

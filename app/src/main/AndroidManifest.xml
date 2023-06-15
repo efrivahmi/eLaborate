@@ -51,16 +51,19 @@
             android:name=".ui.register.TermCondition"
             android:exported="false" />
         <activity
+            android:name=".ui.underdevelop.UnderDevelopmentActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

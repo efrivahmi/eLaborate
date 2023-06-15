@@ -98,4 +98,7 @@
     <string name="phone">Phone Number</string>
     <string name="under_construction">Under Construction</string>
     <string name="we_are_currently_working_on_this_page">We are currently working on this page</string>
+    <string name="address_input">Isi Alamat anda disini!</string>
+    <string name="wrong_phone_number">Kamu memasukan nomer yang salah!</string>
+    <string name="phone_number_input">Masukan Nomer Telpon mu disini!</string>
 </resources>

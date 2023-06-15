@@ -90,7 +90,4 @@ dependencies {
     implementation 'androidx.camera:camera-core:1.2.3'
     implementation 'androidx.camera:camera-lifecycle:1.2.3'
 
-    //SMTP
-    implementation 'com.sun.mail:android-mail:1.6.2'
-    implementation 'com.sun.mail:android-activation:1.6.2'
 }

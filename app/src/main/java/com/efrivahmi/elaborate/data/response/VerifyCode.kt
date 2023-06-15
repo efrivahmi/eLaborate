@@ -6,8 +6,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class VerifyCode(
-    @SerializedName("resetToken")
-    val resetToken: String,
+    @SerializedName("code")
+    val code: Int,
     @SerializedName("error")
     val error: Boolean,
     @SerializedName("message")
@@ -17,5 +17,9 @@ data class VerifyCode(
     @SerializedName("username")
     val username: String,
     @SerializedName("email")
-    val email: String
+    val email: String,
+    @SerializedName("resetToken")
+    val resetToken: String,
+    @SerializedName("verificationCodeDeleted")
+    val verificationCodeDeleted: Boolean
 ): Parcelable

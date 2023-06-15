@@ -2,21 +2,18 @@ package com.efrivahmi.elaborate.ui.main.home
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.efrivahmi.elaborate.R
 import com.efrivahmi.elaborate.databinding.FragmentHomeBinding
 import com.efrivahmi.elaborate.ui.main.MainViewModel
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseActivity
-import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
 import com.efrivahmi.elaborate.ui.main.result.ResultActivity
 import com.efrivahmi.elaborate.ui.underdevelop.UnderDevelopmentActivity
 import com.efrivahmi.elaborate.utils.ViewModelFactory
-import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
 
 class HomeFragment : Fragment() {
     private  var _binding: FragmentHomeBinding? = null

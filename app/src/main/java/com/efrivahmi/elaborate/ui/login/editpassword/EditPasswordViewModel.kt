@@ -1,11 +1,9 @@
 package com.efrivahmi.elaborate.ui.login.editpassword
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.efrivahmi.elaborate.data.model.ResetPassword
-import com.efrivahmi.elaborate.data.model.UserModel
 import com.efrivahmi.elaborate.data.repository.DataSource
 import com.efrivahmi.elaborate.data.response.RpResponse
 import com.efrivahmi.elaborate.data.response.VerifyCode

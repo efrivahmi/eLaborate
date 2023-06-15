@@ -7,9 +7,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.efrivahmi.elaborate.data.api.ApiConfig
 import com.efrivahmi.elaborate.data.api.ml.ApiConfigMl
 import com.efrivahmi.elaborate.data.api.ml.DataSourceDiagnose
-import com.efrivahmi.elaborate.data.api.ml.UserPreferenceMl
-import com.efrivahmi.elaborate.data.preference.UserPreference
 import com.efrivahmi.elaborate.data.repository.DataSource
+import com.efrivahmi.elaborate.data.preference.UserPreference
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("token")
 
@@ -21,7 +20,7 @@ object Injection {
     }
 
     fun labDiagnose(context: Context): DataSourceDiagnose {
-        val preferenceMl = UserPreferenceMl.getInstance(context.dataStore)
+        val preferenceMl = UserPreference.getInstance(context.dataStore)
         val apiServiceMl = ApiConfigMl.getDiagnose()
         return DataSourceDiagnose.getInstance(preferenceMl, apiServiceMl)
     }
