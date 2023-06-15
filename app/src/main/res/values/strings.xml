@@ -104,4 +104,6 @@
     <string name="test_type">Test Type</string>
     <string name="blood_test">Blood Test</string>
     <string name="description">Description</string>
+    <string name="e_laborate">E-Laborate</string>
+    <string name="splash_screen_description">Find medications, doctors, and workouts according to the result</string>
 </resources>
