@@ -1,5 +1,8 @@
 package com.efrivahmi.elaborate.data.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
 data class Doctor(
     val doctors: List<Doctor>,
     val error: Boolean,
@@ -7,7 +10,8 @@ data class Doctor(
     val token: String,
     val userId: String,
     val username: String
-) {
+): Parcelable {
+    @Parcelize
     data class Doctor(
         val age: Int,
         val doctorId: String,
@@ -16,5 +20,5 @@ data class Doctor(
         val name: String,
         val specialty: String,
         val work_place: List<String>
-    )
+    ): Parcelable
 }
