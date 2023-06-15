@@ -54,7 +54,6 @@
     <string name="result">Result</string>
     <string name="home">Home</string>
     <string name="profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="description_diagnosis">Please fill in the data appropriately to avoid errors in diagnosis</string>
     <string name="age">Age</string>
@@ -102,4 +101,9 @@
     <string name="address_input">Input Your Address here!</string>
     <string name="wrong_phone_number">You put incorrect Number Phone!</string>
     <string name="phone_number_input">Put Number Phone here!</string>
+    <string name="test_type">Test Type</string>
+    <string name="blood_test">Blood Test</string>
+    <string name="description">Description</string>
+    <string name="e_laborate">E-Laborate</string>
+    <string name="splash_screen_description">Find medications, doctors, and workouts according to the result</string>
 </resources>

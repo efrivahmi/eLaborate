@@ -106,7 +106,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    tools:text="Test Type"
+                    android:text="@string/test_type"
                     />
 
                 <TextView
@@ -118,7 +118,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text="Blood Test"
+                    android:text="@string/blood_test"
                     />
             </LinearLayout>
 
@@ -159,16 +159,17 @@
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_date"/>
 
             <LinearLayout
-                android:id="@+id/tv_age"
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -191,7 +192,7 @@
                     android:id="@+id/tv_age_patient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="133dp"
+                    android:layout_marginStart="205dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
@@ -209,18 +210,17 @@
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text="Year"
-                    android:text="@string/data_user"
+                    android:text="@string/years"
                     />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tv_sex"
+                android:id="@+id/sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_age"
+                app:layout_constraintTop_toBottomOf="@id/age"
                 >
 
                 <TextView
@@ -238,7 +238,7 @@
                     android:id="@+id/tv_sex_patient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="136dp"
+                    android:layout_marginStart="210dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
@@ -251,16 +251,16 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/tv_rbc"
+                android:id="@+id/rbc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_sex"
+                app:layout_constraintTop_toBottomOf="@id/sex"
                 >
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
@@ -274,7 +274,7 @@
                     android:id="@+id/tv_rbc_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="88dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/white"
@@ -298,12 +298,12 @@
 
 
             <LinearLayout
-                android:id="@+id/tv_hgb"
+                android:id="@+id/hgb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_rbc"
+                app:layout_constraintTop_toBottomOf="@id/rbc"
                 >
 
                 <TextView
@@ -321,7 +321,7 @@
                     android:id="@+id/tv_hgb_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="77dp"
+                    android:layout_marginStart="90dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/white"
@@ -339,9 +339,559 @@
                     android:fontFamily="@font/poppins_regular"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:text="@string/unit_of_rbc"
+                    android:text="@string/unit_of_hgb"
                     />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hgb"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/hematocrit_hct"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_hct_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_hct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mcv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hct"
+                >
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/mean_corpuscular_volume_mcv"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_mcv_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_mcv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/unit_of_mcv"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mcv"
+                >
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/mean_corpuscular_hemoglobin_mch"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_mch_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_mch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/unit_of_mch"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mchc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mch"
+                >
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/mean_corpuscular_hemoglobin_concetration_mchc"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_mchc_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_mchc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/unit_of_mchc"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rdw_cv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mchc"
+                >
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/red_cell_distribution_width_rdw_cv"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_rdw_cv_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="93dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_rdw_cv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wbc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rdw_cv"
+                >
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/white_blood_cell_count_wbc"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_wbc_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="95dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_wbc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/unit_of_wbc"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/neu_gra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wbc"
+                >
+
+                <TextView
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/neutrophil_granulocytes_neu_gra_polys_segs_pmns"
+                    android:fontFamily="@font/poppins_regular"
+                    android:layout_marginStart="30dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/tv_neu_gra_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_neu_gra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lymphs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/neu_gra"
+                >
+
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/lymphocytes_lym_lymphs"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_lymphs_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_lymphs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/monocytes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lymphs"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/monocytes_mo"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_monocytes_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="115dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_monocytes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/eos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/monocytes"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/eosinophils_eos"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_eos_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="113dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_eos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/basophils"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eos"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/basophils_ba_basos"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_basos_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    tools:text="54"
+                    android:text="@string/data_user"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_units_of_basos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@string/percent"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/classification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/basophils">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data_user"
+                    tools:text="1"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="215dp"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                tools:text="It is advisable to seek a medical consultation in order to facilitate a comprehensive assessment for further diagnostic purposes."
+                android:text="@string/data_user"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/black"
+                android:layout_marginStart="70dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/classification"/>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
