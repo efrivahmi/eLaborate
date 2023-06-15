@@ -9,13 +9,13 @@ import com.efrivahmi.elaborate.utils.ViewModelFactoryMl
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
     private var factory = ViewModelFactoryMl
-    private var resultViewModel: ResultViewModel by viewModels { factory }
+   // private var resultViewModel: ResultViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        factory = ViewModelFactoryMl.getInstance(this)
+       // factory = ViewModelFactoryMl.getInstance(this)
     }
 }
