@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.efrivahmi.elaborate.data.api.ml.DataSourceDiagnose
 import com.efrivahmi.elaborate.ui.main.diagnose.DiagnoseViewModel
+import com.efrivahmi.elaborate.ui.main.result.ResultViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactoryMl(private val pref: DataSourceDiagnose) : ViewModelProvider.NewInstanceFactory() {
@@ -14,6 +15,9 @@ class ViewModelFactoryMl(private val pref: DataSourceDiagnose) : ViewModelProvid
         return when {
             modelClass.isAssignableFrom(DiagnoseViewModel::class.java) -> {
                 DiagnoseViewModel(pref) as T
+            }
+            modelClass.isAssignableFrom(ResultViewModel::class.java) -> {
+                ResultViewModel(pref) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

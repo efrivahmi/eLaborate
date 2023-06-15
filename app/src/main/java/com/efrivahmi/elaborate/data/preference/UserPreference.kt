@@ -26,7 +26,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val STATE_KEY = booleanPreferencesKey("state")
         private val RESET_TOKEN_KEY = stringPreferencesKey("resetToken")
         private val DIAGNOSIS_ID_KEY = stringPreferencesKey("diagnosisId")
-        private val PREDICTION_KEY = stringPreferencesKey("prediction")
+        private val PREDICTION_KEY = intPreferencesKey("prediction")
         private val AGE_KEY = intPreferencesKey("age")
         private val SEX_KEY = intPreferencesKey("sex")
         private val RBC_KEY = doublePreferencesKey("rbc")
@@ -98,7 +98,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun saveDiagnose(dResponse: DResponse) {
         dataStore.edit { preference ->
             preference[DIAGNOSIS_ID_KEY] = dResponse.diagnosisId
-            preference[PREDICTION_KEY] = dResponse.prediction.toString()
+            preference[PREDICTION_KEY] = dResponse.prediction
         }
     }
 
@@ -122,7 +122,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    /*fun getSavedDiagnose(): Flow<Diagnose> {
+    fun getSavedDiagnose(): Flow<Diagnose> {
         return dataStore.data.map { preferences ->
             Diagnose(
                 preferences[AGE_KEY]?: 0,
@@ -142,19 +142,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[BA_KEY]?: 0.0
             )
         }
-    }*/
+    }
 
-    /*fun getDiagnose(): Flow<DiagnoseResponse> {
+    fun getDiagnose(): Flow<DResponse> {
         return dataStore.data.map { preferences ->
-            val diagnosisId = preferences[DIAGNOSIS_ID_KEY] ?: ""
-            val inputDataString = preferences[INPUT_DATA_KEY] ?: ""
-            val predictionString = preferences[PREDICTION_KEY] ?: ""
-            val inputData = inputDataString.fromJson<InputData>()
-            val prediction = predictionString.toIntOrNull() ?: 0
-
-            DiagnoseResponse("", diagnosisId, inputData, prediction)
+            DResponse(
+                preferences[DIAGNOSIS_ID_KEY]?: "",
+                preferences[PREDICTION_KEY]?: 0
+            )
         }
-    }*/
+    }
 
     fun getResetToken(): Flow<VerifyCode> {
         return dataStore.data.map { preferences ->

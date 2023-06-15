@@ -77,7 +77,11 @@ class DataSourceDiagnose private constructor(
         pref.saveDiagnoseRequest(diagnose)
     }
 
-    /*fun getDiagnose(): LiveData<DiagnoseResponse> {
+    fun getDiagnose(): LiveData<DResponse> {
         return pref.getDiagnose().asLiveData()
-    }*/
+    }
+
+    fun getSavedDiagnose(): LiveData<Diagnose> {
+        return pref.getSavedDiagnose().asLiveData()
+    }
 }
