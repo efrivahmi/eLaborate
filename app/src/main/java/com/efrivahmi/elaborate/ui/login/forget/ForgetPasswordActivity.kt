@@ -96,7 +96,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
                 forgetPasswordViewModel.sendVerificationCode(email, verificationCode)
                 forgetPasswordViewModel.verifyCode.observe(this) { response ->
                     isVerificationCodeSent = true
-                    isVerificationCodeDeleted = false
+                    isVerificationCodeDeleted = response.verificationCodeDeleted
                     saveSession(
                         VerifyCode(
                             response.code,
@@ -165,7 +165,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
                 try {
                     val intent = Intent(this, EditPasswordActivity::class.java)
                     startActivity(intent)
-                    finish()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
