@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.EditText
@@ -89,31 +90,25 @@ class ForgetPasswordActivity : AppCompatActivity() {
         }
 
         binding.verifyButton.setOnClickListener {
-            if (isVerificationCodeSent && !isVerificationCodeDeleted) {
-                showToastMessage(HelperToast("Verification code has already been sent"))
-            } else {
-                forgetPasswordViewModel.getPatient().observe(this) { patient: UserModel ->
-                    val email = patient.email
-                    val verificationCode = getVerificationCodeFromEditTexts(verificationCodeEditTexts)
-                    if (email.isNotEmpty()) {
-                        forgetPasswordViewModel.sendVerificationCode(email, verificationCode)
-                        forgetPasswordViewModel.verifyCode.observe(this) { response ->
-                            isVerificationCodeSent = true
-                            isVerificationCodeDeleted = response.verificationCodeDeleted
-                            saveSession(
-                                VerifyCode(
-                                    response.code,
-                                    response.error,
-                                    response.message,
-                                    response.userId,
-                                    response.username,
-                                    email,
-                                    response.resetToken,
-                                    response.verificationCodeDeleted
-                                )
-                            )
-                        }
-                    }
+            val email = binding.emailUser.text.toString().trim()
+            val verificationCode = getVerificationCodeFromEditTexts(verificationCodeEditTexts)
+            if (email.isNotEmpty()) {
+                forgetPasswordViewModel.sendVerificationCode(email, verificationCode)
+                forgetPasswordViewModel.verifyCode.observe(this) { response ->
+                    isVerificationCodeSent = true
+                    isVerificationCodeDeleted = false
+                    saveSession(
+                        VerifyCode(
+                            response.code,
+                            response.error,
+                            response.message,
+                            response.userId,
+                            response.username,
+                            email,
+                            response.resetToken,
+                            response.verificationCodeDeleted
+                        )
+                    )
                 }
             }
         }
@@ -160,7 +155,7 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun handleVerifyCodeResponse(verifyCode: VerifyCode) {
-        if (!verifyCode.error && isVerificationCodeSent && isVerificationCodeDeleted) {
+        if (!verifyCode.error) {
             showLoading()
             binding.itemForget.visibility = View.VISIBLE
             binding.error.text = "Successful verification, please change the password"
@@ -177,8 +172,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
             }, 3000)
         } else if (isVerificationCodeDeleted) {
             showToastMessage(HelperToast("Verification code has already been deleted"))
-        } else {
-            showToastMessage(HelperToast("Verification code verification failed"))
         }
     }
 
@@ -187,6 +180,8 @@ class ForgetPasswordActivity : AppCompatActivity() {
             showToastMessage(HelperToast("Forgot password request sent"))
             binding.generatedVerifyButton.isEnabled = false
             binding.generatedVerifyButton.text = getString(R.string.request_sent)
+
+            finish()
         }
     }
 

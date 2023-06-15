@@ -148,25 +148,32 @@ class DataSource private constructor(
 
     fun verifyCode(user: Verify) {
         _isLoading.postValue(true)
-        val callVerifyCode = apiService.verifyCode(user)
-        callVerifyCode.enqueue(object : Callback<VerifyCode> {
-            override fun onResponse(call: Call<VerifyCode>, response: Response<VerifyCode>) {
-                _isLoading.postValue(false)
-                if (response.isSuccessful && response.body() != null) {
-                    _verify.postValue(response.body())
-                    _toastText.postValue(HelperToast(response.body()?.message.toString()))
-                } else {
-                    _toastText.postValue(HelperToast(response.message().toString()))
-                    Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
-                }
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                apiService.verifyCode(user).enqueue(object : Callback<VerifyCode> {
+                    override fun onResponse(call: Call<VerifyCode>, response: Response<VerifyCode>) {
+                        if (response.isSuccessful && response.body() != null) {
+                            _verify.postValue(response.body())
+                            _toastText.postValue(HelperToast(response.body()?.message.toString()))
+                        } else {
+                            _toastText.postValue(HelperToast(response.message().toString()))
+                            Log.e(TAG, "on Failure!: ${response.message()}, ${response.body()?.message.toString()}")
+                        }
+                        _isLoading.postValue(false)
+                    }
 
-            override fun onFailure(call: Call<VerifyCode>, t: Throwable) {
+                    override fun onFailure(call: Call<VerifyCode>, t: Throwable) {
+                        _toastText.postValue(HelperToast(t.message.toString()))
+                        Log.e(TAG, "Failed to send VerifyCode : ${t.message.toString()}")
+                        _isLoading.postValue(false)
+                    }
+                })
+            } catch (e: Exception) {
+                _toastText.postValue(HelperToast(e.message.toString()))
+                Log.e(TAG, "Failed to send VerifyCode : ${e.message.toString()}")
                 _isLoading.postValue(false)
-                _toastText.postValue(HelperToast(t.message.toString()))
-                Log.e(TAG, "Failed to verify code: ${t.message.toString()}")
             }
-        })
+        }
     }
 
     fun resetPassword(request: ResetPassword) {

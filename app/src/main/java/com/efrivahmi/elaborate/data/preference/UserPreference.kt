@@ -13,9 +13,6 @@ import com.efrivahmi.elaborate.data.response.DResponse
 import com.efrivahmi.elaborate.data.response.VerifyCode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
 
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>){
     companion object {
@@ -173,8 +170,4 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
             )
         }
     }
-}
-inline fun <reified T> String.fromJson(): T {
-    val typeToken = object : TypeToken<T>() {}.type
-    return Gson().fromJson(this, typeToken)
 }

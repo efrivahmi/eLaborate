@@ -235,7 +235,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/tv_age_patient"
+                    android:id="@+id/tv_sex_patient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="136dp"
