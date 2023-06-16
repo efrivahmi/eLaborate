@@ -1,12 +1,19 @@
 package com.efrivahmi.elaborate.data.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class SignIn(
-    val error : String,
-    val message : String,
-    val loginResult: LoginResult
-)
-data class LoginResult (
-    val userId : String,
-    val name : String,
-    val token : String
-)
+    val code: Int,
+    val error: Boolean,
+    val message: String,
+    val userData: UserData
+): Parcelable
+@Parcelize
+data class UserData (
+    val userId: String,
+    val username: String,
+    val email: String,
+    val token: String
+): Parcelable

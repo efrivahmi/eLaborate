@@ -75,11 +75,10 @@
         app:startIconDrawable="@drawable/ic_name">
 
         <com.efrivahmi.elaborate.ui.custom.Name
-            android:id="@+id/nameEditText"
+            android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
             tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize,DuplicateClickableBoundsCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,7 +147,7 @@
             android:ems="10"
             android:inputType="textPassword"
             app:passwordToggleEnabled="true"
-            tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+            tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize,TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -284,6 +283,43 @@
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toEndOf="@+id/tv_register"
         tools:ignore="TextContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/item_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints,UseCompoundDrawables"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_story"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:contentDescription="@string/img_user"
+            android:src="@drawable/item_register"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:fontFamily="@font/poppins_medium"
+            android:textAlignment="center"
+            android:textColor="?android:textColorPrimary"
+            tools:text="@string/succesregister" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar2"
