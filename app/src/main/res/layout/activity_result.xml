@@ -88,42 +88,22 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="Test Result"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textSize="20sp"/>
 
                 <ImageView
                     android:id="@+id/line"
                     android:layout_width="150dp"
                     android:layout_height="3dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/line"
-                    app:layout_constraintEnd_toEndOf="@id/tv_test_result"
-                    app:layout_constraintStart_toStartOf="@+id/tv_test_result"
-                    app:layout_constraintTop_toBottomOf="@id/tv_test_result" />
+                    android:src="@drawable/line"/>
 
-                <TextView
-                    android:id="@+id/tv_patient_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@id/line"
-                    app:layout_constraintStart_toStartOf="@+id/line"
-                    app:layout_constraintTop_toBottomOf="@id/line"
-                    tools:text="Choki Sitohang" />
 
 
                 <LinearLayout
                     android:id="@+id/tv_test_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_patient_name">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -147,35 +127,7 @@
                         android:textSize="16sp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/tv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_test_type">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="Date"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tv_date_test"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="150dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/poppins_regular"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:text="Friday, June 01 2023" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_description"
@@ -186,9 +138,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/description"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_date" />
+                    android:textSize="16sp"/>
 
                 <LinearLayout
                     android:id="@+id/age"
@@ -831,6 +781,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/class_result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="215dp"

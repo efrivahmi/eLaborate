@@ -36,6 +36,12 @@ class DiagnoseActivity : AppCompatActivity() {
                     val userId = patient.userId
                     val age = binding.inputage.text.toString().toInt()
                     val sex = binding.inputsex.text.toString().toInt()
+
+                    if (sex != 0 && sex != 1) {
+                        Toast.makeText(this, "Invalid sex input. Please enter 0 for male or 1 for female.", Toast.LENGTH_SHORT).show()
+                    } else {
+
+                    }
                     val rbc = binding.inputrbc.text.toString().toDouble()
                     val hgb = binding.inputhgb.text.toString().toDouble()
                     val hct = binding.inputhct.text.toString().toDouble()

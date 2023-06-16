@@ -108,4 +108,7 @@
     <string name="splash_screen_description">Find medications, doctors, and workouts according to the result</string>
     <string name="my_activities">My Activities</string>
     <string name="account_settings">Account Settings</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="patient_name">Patient Name</string>
 </resources>
